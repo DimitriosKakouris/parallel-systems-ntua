@@ -11,13 +11,14 @@
  or multiple time steps!
  ******************************************************/
 
-#include <omp.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/time.h>
+#include <omp.h>
 
 #define FINALIZE "\
-convert -delay 20 out*.pgm output.gif\n\
+convert -delay 20 `ls -1 out*.pgm | sort -V` output.gif\n\
 rm *pgm\n\
 "
 
@@ -26,12 +27,7 @@ void free_array(int ** array, int N);
 void init_random(int ** array1, int ** array2, int N);
 void print_to_pgm( int ** array, int N, int t );
 
-
-
-
 int main (int argc, char * argv[]) {
-
-	omp_set_num_threads(16);
 	int N;	 			//array dimensions
 	int T; 				//time steps
 	int ** current, ** previous; 	//arrays - one for current timestep, one for previous timestep
@@ -40,7 +36,6 @@ int main (int argc, char * argv[]) {
 
 	double time;			//variables for timing
 	struct timeval ts,tf;
-	
 
 	/*Read input arguments*/
 	if ( argc != 3 ) {
@@ -51,7 +46,6 @@ int main (int argc, char * argv[]) {
 		N = atoi(argv[1]);
 		T = atoi(argv[2]);
 	}
-	
 
 	/*Allocate and initialize matrices*/
 	current = allocate_array(N);			//allocate array for current time step
@@ -65,27 +59,20 @@ int main (int argc, char * argv[]) {
 
 	/*Game of Life*/
 
-    
 	gettimeofday(&ts,NULL);
-	#pragma omp parallel for private(nbrs,i,j)
-	for (t=0; t<T; t++){
-		
-		for(i=1;i<N-1;i++){
-			
-			for(j=1; j<N-1; j++){
-				nbrs = previous[i][j+1]+previous[i][j-1]+previous[i-1][j+1]+previous[i-1][j-1]+ previous[i-1][j]+previous[i+1][j]+previous[i+1][j+1]+previous[i+1][j-1];
-
-				if(nbrs==3 || nbrs*previous[i][j]==2 || nbrs*previous[i][j]==3 ){
+	for ( t = 0 ; t < T ; t++ ) {
+                #pragma omp parallel for private(nbrs,i,j) shared (previous,current)
+		for ( i = 1 ; i < N-1 ; i++ )
+			for ( j = 1 ; j < N-1 ; j++ ) {
+				nbrs = previous[i+1][j+1] + previous[i+1][j] + previous[i+1][j-1] \
+				       + previous[i][j-1] + previous[i][j+1] \
+				       + previous[i-1][j-1] + previous[i-1][j] + previous[i-1][j+1];
+				if ( nbrs == 3 || ( previous[i][j]+nbrs ==3 ) )
 					current[i][j]=1;
-				}
-				else{
+				else 
 					current[i][j]=0;
-				}
-			
-			// printf("Thread %d is working on row %d\n", omp_get_thread_num(), i);
 			}
 
-		}
 		#ifdef OUTPUT
 		print_to_pgm(current, N, t+1);
 		#endif
@@ -93,7 +80,6 @@ int main (int argc, char * argv[]) {
 		swap=current;
 		current=previous;
 		previous=swap;
-		
 
 	}
 	gettimeofday(&tf,NULL);
@@ -106,13 +92,12 @@ int main (int argc, char * argv[]) {
 	system(FINALIZE);
 	#endif
 
-	return 0;
+
 }
 
 int ** allocate_array(int N) {
 	int ** array;
 	int i,j;
-	
 	array = malloc(N * sizeof(int*));
 	for ( i = 0; i < N ; i++ ) 
 		array[i] = malloc( N * sizeof(int));
@@ -132,7 +117,6 @@ void free_array(int ** array, int N) {
 void init_random(int ** array1, int ** array2, int N) {
 	int i,pos,x,y;
 
-   
 	for ( i = 0 ; i < (N * N)/10 ; i++ ) {
 		pos = rand() % ((N-2)*(N-2));
 		array1[pos%(N-2)+1][pos/(N-2)+1] = 1;
