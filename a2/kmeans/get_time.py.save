@@ -1,0 +1,53 @@
+# Define the path to your text file
+file_path = # Define the path to your text file
+file_path = 'your_file.txt'
+
+# Open the file in read mode
+with open(file_path, 'r') as file:
+    # Read all lines from the file
+    lines = file.readlines()
+
+    # Iterate through each line
+    for line in lines:
+        # Check if the line contains the word "total:"
+        if 'total:' in line.lower():
+            # Split the line into words
+            words = line.split()
+
+            # Find the index of "total:" in the words list
+            total_index = words.index('total:')
+
+            # Check if there is a word after "total:"
+            if total_index + 1 < len(words):
+                # Get the word following "total:" as the time result
+                time_result = words[total_index + 1]
+                print("Time result:", time_result)
+                break  # Exit the loop once the first occurrence is found
+    else:
+        print("No 'total:' found in the file.")
+
+
+# Open the file in read mode
+with open(file_path, 'r') as file:
+    # Read all lines from the file
+    lines = file.readlines()
+
+    # Iterate through each line
+    for line in lines:
+        # Check if the line contains the word "total:"
+        if 'total:' in line.lower():
+            # Split the line into words
+            words = line.split()
+
+            # Find the index of "total:" in the words list
+            total_index = words.index('total:')
+
+            # Check if there is a word after "total:"
+            if total_index + 1 < len(words):
+                # Get the word following "total:" as the time result
+                time_result = words[total_index + 1]
+                print("Time result:", time_result)
+                break  # Exit the loop once the first occurrence is found
+    else:
+        print("No 'total:' found in the file.")
+

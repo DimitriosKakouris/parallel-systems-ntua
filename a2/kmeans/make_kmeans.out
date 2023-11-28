@@ -1,0 +1,2 @@
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c omp_reduction_kmeans_fs.c -o omp_reduction_kmeans_fs.o
+Makefile:40: recipe for target 'omp_reduction_kmeans_fs.o' failed

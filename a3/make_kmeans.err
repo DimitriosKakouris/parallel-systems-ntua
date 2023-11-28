@@ -1,0 +1,2 @@
+/var/spool/torque/mom_priv/jobs/523586.localhost.SC: line 20: syntax error near unexpected token `newline'
+/var/spool/torque/mom_priv/jobs/523586.localhost.SC: line 20: `cd <FIX_PATH>'
