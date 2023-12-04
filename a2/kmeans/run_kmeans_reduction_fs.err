@@ -1,0 +1,810 @@
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x0000000002307b90 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7f9f58022bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7f9f58028fc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7f9f5802980e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7f9f57fd22e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+02305000-02326000 rw-p 00000000 00:00 0                                  [heap]
+7f9f40000000-7f9f40021000 rw-p 00000000 00:00 0 
+7f9f40021000-7f9f44000000 ---p 00000000 00:00 0 
+7f9f47392000-7f9f473a8000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f9f473a8000-7f9f475a7000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f9f475a7000-7f9f475a8000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f9f475a8000-7f9f57daa000 rw-p 00000000 00:00 0 
+7f9f57daa000-7f9f57db1000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f9f57db1000-7f9f57fb0000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f9f57fb0000-7f9f57fb1000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f9f57fb1000-7f9f57fb2000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f9f57fb2000-7f9f58147000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f9f58147000-7f9f58347000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f9f58347000-7f9f5834b000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f9f5834b000-7f9f5834d000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f9f5834d000-7f9f58351000 rw-p 00000000 00:00 0 
+7f9f58351000-7f9f58369000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f9f58369000-7f9f58568000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f9f58568000-7f9f58569000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f9f58569000-7f9f5856a000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f9f5856a000-7f9f5856e000 rw-p 00000000 00:00 0 
+7f9f5856e000-7f9f58583000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f9f58583000-7f9f58782000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f9f58782000-7f9f58783000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f9f58783000-7f9f587a6000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f9f58990000-7f9f58992000 rw-p 00000000 00:00 0 
+7f9f589a3000-7f9f589a6000 rw-p 00000000 00:00 0 
+7f9f589a6000-7f9f589a7000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f9f589a7000-7f9f589a8000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f9f589a8000-7f9f589a9000 rw-p 00000000 00:00 0 
+7ffc058e1000-7ffc05902000 rw-p 00000000 00:00 0                          [stack]
+7ffc05917000-7ffc05919000 r--p 00000000 00:00 0                          [vvar]
+7ffc05919000-7ffc0591b000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49675 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x0000000001bd6dc0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7fd305ec4bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7fd305ecafc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7fd305ecb80e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7fd305e742e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+01bd4000-01bf5000 rw-p 00000000 00:00 0                                  [heap]
+7fd2e8000000-7fd2e8021000 rw-p 00000000 00:00 0 
+7fd2e8021000-7fd2ec000000 ---p 00000000 00:00 0 
+7fd2f0000000-7fd2f0021000 rw-p 00000000 00:00 0 
+7fd2f0021000-7fd2f4000000 ---p 00000000 00:00 0 
+7fd2f4a33000-7fd2f4a49000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fd2f4a49000-7fd2f4c48000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fd2f4c48000-7fd2f4c49000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fd2f4c49000-7fd2f4c4a000 ---p 00000000 00:00 0 
+7fd2f4c4a000-7fd305c4c000 rw-p 00000000 00:00 0 
+7fd305c4c000-7fd305c53000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fd305c53000-7fd305e52000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fd305e52000-7fd305e53000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fd305e53000-7fd305e54000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fd305e54000-7fd305fe9000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fd305fe9000-7fd3061e9000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fd3061e9000-7fd3061ed000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fd3061ed000-7fd3061ef000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fd3061ef000-7fd3061f3000 rw-p 00000000 00:00 0 
+7fd3061f3000-7fd30620b000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fd30620b000-7fd30640a000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fd30640a000-7fd30640b000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fd30640b000-7fd30640c000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fd30640c000-7fd306410000 rw-p 00000000 00:00 0 
+7fd306410000-7fd306425000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fd306425000-7fd306624000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fd306624000-7fd306625000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fd306625000-7fd306648000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fd306832000-7fd306834000 rw-p 00000000 00:00 0 
+7fd306845000-7fd306848000 rw-p 00000000 00:00 0 
+7fd306848000-7fd306849000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fd306849000-7fd30684a000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fd30684a000-7fd30684b000 rw-p 00000000 00:00 0 
+7ffc7cebb000-7ffc7cedc000 rw-p 00000000 00:00 0                          [stack]
+7ffc7cf62000-7ffc7cf64000 r--p 00000000 00:00 0                          [vvar]
+7ffc7cf64000-7ffc7cf66000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49676 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x00000000025041a0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7fe3430c5bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7fe3430cbfc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7fe3430cc80e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7fe3430752e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+02501000-02522000 rw-p 00000000 00:00 0                                  [heap]
+7fe314000000-7fe314021000 rw-p 00000000 00:00 0 
+7fe314021000-7fe318000000 ---p 00000000 00:00 0 
+7fe31c000000-7fe31c021000 rw-p 00000000 00:00 0 
+7fe31c021000-7fe320000000 ---p 00000000 00:00 0 
+7fe324000000-7fe324021000 rw-p 00000000 00:00 0 
+7fe324021000-7fe328000000 ---p 00000000 00:00 0 
+7fe32c000000-7fe32c021000 rw-p 00000000 00:00 0 
+7fe32c021000-7fe330000000 ---p 00000000 00:00 0 
+7fe330c32000-7fe330c48000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fe330c48000-7fe330e47000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fe330e47000-7fe330e48000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fe330e48000-7fe330e49000 ---p 00000000 00:00 0 
+7fe330e49000-7fe331649000 rw-p 00000000 00:00 0 
+7fe331649000-7fe33164a000 ---p 00000000 00:00 0 
+7fe33164a000-7fe331e4a000 rw-p 00000000 00:00 0 
+7fe331e4a000-7fe331e4b000 ---p 00000000 00:00 0 
+7fe331e4b000-7fe342e4d000 rw-p 00000000 00:00 0 
+7fe342e4d000-7fe342e54000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fe342e54000-7fe343053000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fe343053000-7fe343054000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fe343054000-7fe343055000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fe343055000-7fe3431ea000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fe3431ea000-7fe3433ea000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fe3433ea000-7fe3433ee000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fe3433ee000-7fe3433f0000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fe3433f0000-7fe3433f4000 rw-p 00000000 00:00 0 
+7fe3433f4000-7fe34340c000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fe34340c000-7fe34360b000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fe34360b000-7fe34360c000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fe34360c000-7fe34360d000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fe34360d000-7fe343611000 rw-p 00000000 00:00 0 
+7fe343611000-7fe343626000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fe343626000-7fe343825000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fe343825000-7fe343826000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fe343826000-7fe343849000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fe343a33000-7fe343a35000 rw-p 00000000 00:00 0 
+7fe343a46000-7fe343a49000 rw-p 00000000 00:00 0 
+7fe343a49000-7fe343a4a000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fe343a4a000-7fe343a4b000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fe343a4b000-7fe343a4c000 rw-p 00000000 00:00 0 
+7ffcc8506000-7ffcc8527000 rw-p 00000000 00:00 0                          [stack]
+7ffcc856f000-7ffcc8571000 r--p 00000000 00:00 0                          [vvar]
+7ffcc8571000-7ffcc8573000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49684 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x0000000001879960 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7f650c8bdbfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7f650c8c3fc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7f650c8c480e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7f650c86d2e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+01876000-01897000 rw-p 00000000 00:00 0                                  [heap]
+7f64bc000000-7f64bc021000 rw-p 00000000 00:00 0 
+7f64bc021000-7f64c0000000 ---p 00000000 00:00 0 
+7f64c4000000-7f64c4021000 rw-p 00000000 00:00 0 
+7f64c4021000-7f64c8000000 ---p 00000000 00:00 0 
+7f64cc000000-7f64cc021000 rw-p 00000000 00:00 0 
+7f64cc021000-7f64d0000000 ---p 00000000 00:00 0 
+7f64d4000000-7f64d4021000 rw-p 00000000 00:00 0 
+7f64d4021000-7f64d8000000 ---p 00000000 00:00 0 
+7f64dc000000-7f64dc021000 rw-p 00000000 00:00 0 
+7f64dc021000-7f64e0000000 ---p 00000000 00:00 0 
+7f64e4000000-7f64e4021000 rw-p 00000000 00:00 0 
+7f64e4021000-7f64e8000000 ---p 00000000 00:00 0 
+7f64ec000000-7f64ec021000 rw-p 00000000 00:00 0 
+7f64ec021000-7f64f0000000 ---p 00000000 00:00 0 
+7f64f4000000-7f64f4021000 rw-p 00000000 00:00 0 
+7f64f4021000-7f64f8000000 ---p 00000000 00:00 0 
+7f64f8426000-7f64f843c000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f64f843c000-7f64f863b000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f64f863b000-7f64f863c000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7f64f863c000-7f64f863d000 ---p 00000000 00:00 0 
+7f64f863d000-7f64f8e3d000 rw-p 00000000 00:00 0 
+7f64f8e3d000-7f64f8e3e000 ---p 00000000 00:00 0 
+7f64f8e3e000-7f64f963e000 rw-p 00000000 00:00 0 
+7f64f963e000-7f64f963f000 ---p 00000000 00:00 0 
+7f64f963f000-7f64f9e3f000 rw-p 00000000 00:00 0 
+7f64f9e3f000-7f64f9e40000 ---p 00000000 00:00 0 
+7f64f9e40000-7f64fa640000 rw-p 00000000 00:00 0 
+7f64fa640000-7f64fa641000 ---p 00000000 00:00 0 
+7f64fa641000-7f64fae41000 rw-p 00000000 00:00 0 
+7f64fae41000-7f64fae42000 ---p 00000000 00:00 0 
+7f64fae42000-7f64fb642000 rw-p 00000000 00:00 0 
+7f64fb642000-7f64fb643000 ---p 00000000 00:00 0 
+7f64fb643000-7f650c645000 rw-p 00000000 00:00 0 
+7f650c645000-7f650c64c000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f650c64c000-7f650c84b000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f650c84b000-7f650c84c000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f650c84c000-7f650c84d000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7f650c84d000-7f650c9e2000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f650c9e2000-7f650cbe2000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f650cbe2000-7f650cbe6000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f650cbe6000-7f650cbe8000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7f650cbe8000-7f650cbec000 rw-p 00000000 00:00 0 
+7f650cbec000-7f650cc04000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f650cc04000-7f650ce03000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f650ce03000-7f650ce04000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f650ce04000-7f650ce05000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7f650ce05000-7f650ce09000 rw-p 00000000 00:00 0 
+7f650ce09000-7f650ce1e000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f650ce1e000-7f650d01d000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f650d01d000-7f650d01e000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7f650d01e000-7f650d041000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f650d22b000-7f650d22d000 rw-p 00000000 00:00 0 
+7f650d23e000-7f650d241000 rw-p 00000000 00:00 0 
+7f650d241000-7f650d242000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f650d242000-7f650d243000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7f650d243000-7f650d244000 rw-p 00000000 00:00 0 
+7ffe8945f000-7ffe89480000 rw-p 00000000 00:00 0                          [stack]
+7ffe89495000-7ffe89497000 r--p 00000000 00:00 0                          [vvar]
+7ffe89497000-7ffe89499000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49690 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x00000000012ab8e0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7ff7f82c3bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7ff7f82c9fc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7ff7f82ca80e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7ff7f82732e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+012a7000-012c8000 rw-p 00000000 00:00 0                                  [heap]
+7ff78c000000-7ff78c021000 rw-p 00000000 00:00 0 
+7ff78c021000-7ff790000000 ---p 00000000 00:00 0 
+7ff794000000-7ff794021000 rw-p 00000000 00:00 0 
+7ff794021000-7ff798000000 ---p 00000000 00:00 0 
+7ff798000000-7ff798021000 rw-p 00000000 00:00 0 
+7ff798021000-7ff79c000000 ---p 00000000 00:00 0 
+7ff79c000000-7ff79c021000 rw-p 00000000 00:00 0 
+7ff79c021000-7ff7a0000000 ---p 00000000 00:00 0 
+7ff7a4000000-7ff7a4021000 rw-p 00000000 00:00 0 
+7ff7a4021000-7ff7a8000000 ---p 00000000 00:00 0 
+7ff7ac000000-7ff7ac021000 rw-p 00000000 00:00 0 
+7ff7ac021000-7ff7b0000000 ---p 00000000 00:00 0 
+7ff7b4000000-7ff7b4021000 rw-p 00000000 00:00 0 
+7ff7b4021000-7ff7b8000000 ---p 00000000 00:00 0 
+7ff7bbdea000-7ff7bbe00000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff7bbe00000-7ff7bbfff000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff7bbfff000-7ff7bc000000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff7bc000000-7ff7bc021000 rw-p 00000000 00:00 0 
+7ff7bc021000-7ff7c0000000 ---p 00000000 00:00 0 
+7ff7c0000000-7ff7c0021000 rw-p 00000000 00:00 0 
+7ff7c0021000-7ff7c4000000 ---p 00000000 00:00 0 
+7ff7c4000000-7ff7c4021000 rw-p 00000000 00:00 0 
+7ff7c4021000-7ff7c8000000 ---p 00000000 00:00 0 
+7ff7c8000000-7ff7c8021000 rw-p 00000000 00:00 0 
+7ff7c8021000-7ff7cc000000 ---p 00000000 00:00 0 
+7ff7cc000000-7ff7cc021000 rw-p 00000000 00:00 0 
+7ff7cc021000-7ff7d0000000 ---p 00000000 00:00 0 
+7ff7d0000000-7ff7d0021000 rw-p 00000000 00:00 0 
+7ff7d0021000-7ff7d4000000 ---p 00000000 00:00 0 
+7ff7d4000000-7ff7d4021000 rw-p 00000000 00:00 0 
+7ff7d4021000-7ff7d8000000 ---p 00000000 00:00 0 
+7ff7d8000000-7ff7d8021000 rw-p 00000000 00:00 0 
+7ff7d8021000-7ff7dc000000 ---p 00000000 00:00 0 
+7ff7dc000000-7ff7dc021000 rw-p 00000000 00:00 0 
+7ff7dc021000-7ff7e0000000 ---p 00000000 00:00 0 
+7ff7e003a000-7ff7e003b000 ---p 00000000 00:00 0 
+7ff7e003b000-7ff7e083b000 rw-p 00000000 00:00 0 
+7ff7e083b000-7ff7e083c000 ---p 00000000 00:00 0 
+7ff7e083c000-7ff7e103c000 rw-p 00000000 00:00 0 
+7ff7e103c000-7ff7e103d000 ---p 00000000 00:00 0 
+7ff7e103d000-7ff7e183d000 rw-p 00000000 00:00 0 
+7ff7e183d000-7ff7e183e000 ---p 00000000 00:00 0 
+7ff7e183e000-7ff7e203e000 rw-p 00000000 00:00 0 
+7ff7e203e000-7ff7e203f000 ---p 00000000 00:00 0 
+7ff7e203f000-7ff7e283f000 rw-p 00000000 00:00 0 
+7ff7e283f000-7ff7e2840000 ---p 00000000 00:00 0 
+7ff7e2840000-7ff7e3040000 rw-p 00000000 00:00 0 
+7ff7e3040000-7ff7e3041000 ---p 00000000 00:00 0 
+7ff7e3041000-7ff7e3841000 rw-p 00000000 00:00 0 
+7ff7e3841000-7ff7e3842000 ---p 00000000 00:00 0 
+7ff7e3842000-7ff7e4042000 rw-p 00000000 00:00 0 
+7ff7e4042000-7ff7e4043000 ---p 00000000 00:00 0 
+7ff7e4043000-7ff7e4843000 rw-p 00000000 00:00 0 
+7ff7e4843000-7ff7e4844000 ---p 00000000 00:00 0 
+7ff7e4844000-7ff7e5044000 rw-p 00000000 00:00 0 
+7ff7e5044000-7ff7e5045000 ---p 00000000 00:00 0 
+7ff7e5045000-7ff7e5845000 rw-p 00000000 00:00 0 
+7ff7e5845000-7ff7e5846000 ---p 00000000 00:00 0 
+7ff7e5846000-7ff7e6046000 rw-p 00000000 00:00 0 
+7ff7e6046000-7ff7e6047000 ---p 00000000 00:00 0 
+7ff7e6047000-7ff7e6847000 rw-p 00000000 00:00 0 
+7ff7e6847000-7ff7e6848000 ---p 00000000 00:00 0 
+7ff7e6848000-7ff7e7048000 rw-p 00000000 00:00 0 
+7ff7e7048000-7ff7e7049000 ---p 00000000 00:00 0 
+7ff7e7049000-7ff7f804b000 rw-p 00000000 00:00 0 
+7ff7f804b000-7ff7f8052000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff7f8052000-7ff7f8251000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff7f8251000-7ff7f8252000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff7f8252000-7ff7f8253000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff7f8253000-7ff7f83e8000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff7f83e8000-7ff7f85e8000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff7f85e8000-7ff7f85ec000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff7f85ec000-7ff7f85ee000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff7f85ee000-7ff7f85f2000 rw-p 00000000 00:00 0 
+7ff7f85f2000-7ff7f860a000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff7f860a000-7ff7f8809000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff7f8809000-7ff7f880a000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff7f880a000-7ff7f880b000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff7f880b000-7ff7f880f000 rw-p 00000000 00:00 0 
+7ff7f880f000-7ff7f8824000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff7f8824000-7ff7f8a23000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff7f8a23000-7ff7f8a24000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff7f8a24000-7ff7f8a47000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff7f8c31000-7ff7f8c33000 rw-p 00000000 00:00 0 
+7ff7f8c44000-7ff7f8c47000 rw-p 00000000 00:00 0 
+7ff7f8c47000-7ff7f8c48000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff7f8c48000-7ff7f8c49000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff7f8c49000-7ff7f8c4a000 rw-p 00000000 00:00 0 
+7ffe36bf4000-7ffe36c15000 rw-p 00000000 00:00 0                          [stack]
+7ffe36c32000-7ffe36c34000 r--p 00000000 00:00 0                          [vvar]
+7ffe36c34000-7ffe36c36000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49698 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x00000000006a07e0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7ff98e763bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7ff98e769fc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7ff98e76a80e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7ff98e7132e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+0069a000-006bb000 rw-p 00000000 00:00 0                                  [heap]
+7ff8e0000000-7ff8e0021000 rw-p 00000000 00:00 0 
+7ff8e0021000-7ff8e4000000 ---p 00000000 00:00 0 
+7ff8e4000000-7ff8e4021000 rw-p 00000000 00:00 0 
+7ff8e4021000-7ff8e8000000 ---p 00000000 00:00 0 
+7ff8e8000000-7ff8e8021000 rw-p 00000000 00:00 0 
+7ff8e8021000-7ff8ec000000 ---p 00000000 00:00 0 
+7ff8ec000000-7ff8ec021000 rw-p 00000000 00:00 0 
+7ff8ec021000-7ff8f0000000 ---p 00000000 00:00 0 
+7ff8f0000000-7ff8f0021000 rw-p 00000000 00:00 0 
+7ff8f0021000-7ff8f4000000 ---p 00000000 00:00 0 
+7ff8f8000000-7ff8f8021000 rw-p 00000000 00:00 0 
+7ff8f8021000-7ff8fc000000 ---p 00000000 00:00 0 
+7ff900000000-7ff900021000 rw-p 00000000 00:00 0 
+7ff900021000-7ff904000000 ---p 00000000 00:00 0 
+7ff908000000-7ff908021000 rw-p 00000000 00:00 0 
+7ff908021000-7ff90c000000 ---p 00000000 00:00 0 
+7ff90c000000-7ff90c021000 rw-p 00000000 00:00 0 
+7ff90c021000-7ff910000000 ---p 00000000 00:00 0 
+7ff910000000-7ff910021000 rw-p 00000000 00:00 0 
+7ff910021000-7ff914000000 ---p 00000000 00:00 0 
+7ff914000000-7ff914021000 rw-p 00000000 00:00 0 
+7ff914021000-7ff918000000 ---p 00000000 00:00 0 
+7ff918000000-7ff918021000 rw-p 00000000 00:00 0 
+7ff918021000-7ff91c000000 ---p 00000000 00:00 0 
+7ff91c000000-7ff91c021000 rw-p 00000000 00:00 0 
+7ff91c021000-7ff920000000 ---p 00000000 00:00 0 
+7ff920000000-7ff920021000 rw-p 00000000 00:00 0 
+7ff920021000-7ff924000000 ---p 00000000 00:00 0 
+7ff924000000-7ff924021000 rw-p 00000000 00:00 0 
+7ff924021000-7ff928000000 ---p 00000000 00:00 0 
+7ff928000000-7ff928021000 rw-p 00000000 00:00 0 
+7ff928021000-7ff92c000000 ---p 00000000 00:00 0 
+7ff92c000000-7ff92c021000 rw-p 00000000 00:00 0 
+7ff92c021000-7ff930000000 ---p 00000000 00:00 0 
+7ff930000000-7ff930021000 rw-p 00000000 00:00 0 
+7ff930021000-7ff934000000 ---p 00000000 00:00 0 
+7ff934000000-7ff934021000 rw-p 00000000 00:00 0 
+7ff934021000-7ff938000000 ---p 00000000 00:00 0 
+7ff938000000-7ff938021000 rw-p 00000000 00:00 0 
+7ff938021000-7ff93c000000 ---p 00000000 00:00 0 
+7ff93c000000-7ff93c021000 rw-p 00000000 00:00 0 
+7ff93c021000-7ff940000000 ---p 00000000 00:00 0 
+7ff940000000-7ff940021000 rw-p 00000000 00:00 0 
+7ff940021000-7ff944000000 ---p 00000000 00:00 0 
+7ff944000000-7ff944021000 rw-p 00000000 00:00 0 
+7ff944021000-7ff948000000 ---p 00000000 00:00 0 
+7ff948000000-7ff948021000 rw-p 00000000 00:00 0 
+7ff948021000-7ff94c000000 ---p 00000000 00:00 0 
+7ff94c000000-7ff94c021000 rw-p 00000000 00:00 0 
+7ff94c021000-7ff950000000 ---p 00000000 00:00 0 
+7ff950000000-7ff950021000 rw-p 00000000 00:00 0 
+7ff950021000-7ff954000000 ---p 00000000 00:00 0 
+7ff954000000-7ff954021000 rw-p 00000000 00:00 0 
+7ff954021000-7ff958000000 ---p 00000000 00:00 0 
+7ff958000000-7ff958021000 rw-p 00000000 00:00 0 
+7ff958021000-7ff95c000000 ---p 00000000 00:00 0 
+7ff95c000000-7ff95c021000 rw-p 00000000 00:00 0 
+7ff95c021000-7ff960000000 ---p 00000000 00:00 0 
+7ff960000000-7ff960021000 rw-p 00000000 00:00 0 
+7ff960021000-7ff964000000 ---p 00000000 00:00 0 
+7ff964000000-7ff964021000 rw-p 00000000 00:00 0 
+7ff964021000-7ff968000000 ---p 00000000 00:00 0 
+7ff968000000-7ff968021000 rw-p 00000000 00:00 0 
+7ff968021000-7ff96c000000 ---p 00000000 00:00 0 
+7ff96e2b4000-7ff96e2ca000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff96e2ca000-7ff96e4c9000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff96e4c9000-7ff96e4ca000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7ff96e4ca000-7ff96e4cb000 ---p 00000000 00:00 0 
+7ff96e4cb000-7ff96eccb000 rw-p 00000000 00:00 0 
+7ff96eccb000-7ff96eccc000 ---p 00000000 00:00 0 
+7ff96eccc000-7ff96f4cc000 rw-p 00000000 00:00 0 
+7ff96f4cc000-7ff96f4cd000 ---p 00000000 00:00 0 
+7ff96f4cd000-7ff96fccd000 rw-p 00000000 00:00 0 
+7ff96fccd000-7ff96fcce000 ---p 00000000 00:00 0 
+7ff96fcce000-7ff9704ce000 rw-p 00000000 00:00 0 
+7ff9704ce000-7ff9704cf000 ---p 00000000 00:00 0 
+7ff9704cf000-7ff970ccf000 rw-p 00000000 00:00 0 
+7ff970ccf000-7ff970cd0000 ---p 00000000 00:00 0 
+7ff970cd0000-7ff9714d0000 rw-p 00000000 00:00 0 
+7ff9714d0000-7ff9714d1000 ---p 00000000 00:00 0 
+7ff9714d1000-7ff971cd1000 rw-p 00000000 00:00 0 
+7ff971cd1000-7ff971cd2000 ---p 00000000 00:00 0 
+7ff971cd2000-7ff9724d2000 rw-p 00000000 00:00 0 
+7ff9724d2000-7ff9724d3000 ---p 00000000 00:00 0 
+7ff9724d3000-7ff972cd3000 rw-p 00000000 00:00 0 
+7ff972cd3000-7ff972cd4000 ---p 00000000 00:00 0 
+7ff972cd4000-7ff9734d4000 rw-p 00000000 00:00 0 
+7ff9734d4000-7ff9734d5000 ---p 00000000 00:00 0 
+7ff9734d5000-7ff973cd5000 rw-p 00000000 00:00 0 
+7ff973cd5000-7ff973cd6000 ---p 00000000 00:00 0 
+7ff973cd6000-7ff9744d6000 rw-p 00000000 00:00 0 
+7ff9744d6000-7ff9744d7000 ---p 00000000 00:00 0 
+7ff9744d7000-7ff974cd7000 rw-p 00000000 00:00 0 
+7ff974cd7000-7ff974cd8000 ---p 00000000 00:00 0 
+7ff974cd8000-7ff9754d8000 rw-p 00000000 00:00 0 
+7ff9754d8000-7ff9754d9000 ---p 00000000 00:00 0 
+7ff9754d9000-7ff975cd9000 rw-p 00000000 00:00 0 
+7ff975cd9000-7ff975cda000 ---p 00000000 00:00 0 
+7ff975cda000-7ff9764da000 rw-p 00000000 00:00 0 
+7ff9764da000-7ff9764db000 ---p 00000000 00:00 0 
+7ff9764db000-7ff976cdb000 rw-p 00000000 00:00 0 
+7ff976cdb000-7ff976cdc000 ---p 00000000 00:00 0 
+7ff976cdc000-7ff9774dc000 rw-p 00000000 00:00 0 
+7ff9774dc000-7ff9774dd000 ---p 00000000 00:00 0 
+7ff9774dd000-7ff977cdd000 rw-p 00000000 00:00 0 
+7ff977cdd000-7ff977cde000 ---p 00000000 00:00 0 
+7ff977cde000-7ff9784de000 rw-p 00000000 00:00 0 
+7ff9784de000-7ff9784df000 ---p 00000000 00:00 0 
+7ff9784df000-7ff978cdf000 rw-p 00000000 00:00 0 
+7ff978cdf000-7ff978ce0000 ---p 00000000 00:00 0 
+7ff978ce0000-7ff9794e0000 rw-p 00000000 00:00 0 
+7ff9794e0000-7ff9794e1000 ---p 00000000 00:00 0 
+7ff9794e1000-7ff979ce1000 rw-p 00000000 00:00 0 
+7ff979ce1000-7ff979ce2000 ---p 00000000 00:00 0 
+7ff979ce2000-7ff97a4e2000 rw-p 00000000 00:00 0 
+7ff97a4e2000-7ff97a4e3000 ---p 00000000 00:00 0 
+7ff97a4e3000-7ff97ace3000 rw-p 00000000 00:00 0 
+7ff97ace3000-7ff97ace4000 ---p 00000000 00:00 0 
+7ff97ace4000-7ff97b4e4000 rw-p 00000000 00:00 0 
+7ff97b4e4000-7ff97b4e5000 ---p 00000000 00:00 0 
+7ff97b4e5000-7ff97bce5000 rw-p 00000000 00:00 0 
+7ff97bce5000-7ff97bce6000 ---p 00000000 00:00 0 
+7ff97bce6000-7ff97c4e6000 rw-p 00000000 00:00 0 
+7ff97c4e6000-7ff97c4e7000 ---p 00000000 00:00 0 
+7ff97c4e7000-7ff97cce7000 rw-p 00000000 00:00 0 
+7ff97cce7000-7ff97cce8000 ---p 00000000 00:00 0 
+7ff97cce8000-7ff97d4e8000 rw-p 00000000 00:00 0 
+7ff97d4e8000-7ff97d4e9000 ---p 00000000 00:00 0 
+7ff97d4e9000-7ff98e4eb000 rw-p 00000000 00:00 0 
+7ff98e4eb000-7ff98e4f2000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff98e4f2000-7ff98e6f1000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff98e6f1000-7ff98e6f2000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff98e6f2000-7ff98e6f3000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7ff98e6f3000-7ff98e888000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff98e888000-7ff98ea88000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff98ea88000-7ff98ea8c000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff98ea8c000-7ff98ea8e000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7ff98ea8e000-7ff98ea92000 rw-p 00000000 00:00 0 
+7ff98ea92000-7ff98eaaa000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff98eaaa000-7ff98eca9000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff98eca9000-7ff98ecaa000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff98ecaa000-7ff98ecab000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7ff98ecab000-7ff98ecaf000 rw-p 00000000 00:00 0 
+7ff98ecaf000-7ff98ecc4000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff98ecc4000-7ff98eec3000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff98eec3000-7ff98eec4000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7ff98eec4000-7ff98eee7000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff98f0d1000-7ff98f0d3000 rw-p 00000000 00:00 0 
+7ff98f0e4000-7ff98f0e7000 rw-p 00000000 00:00 0 
+7ff98f0e7000-7ff98f0e8000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff98f0e8000-7ff98f0e9000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7ff98f0e9000-7ff98f0ea000 rw-p 00000000 00:00 0 
+7ffff25ed000-7ffff260e000 rw-p 00000000 00:00 0                          [stack]
+7ffff26c6000-7ffff26c8000 r--p 00000000 00:00 0                          [vvar]
+7ffff26c8000-7ffff26ca000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49714 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10
+*** Error in `./kmeans_omp_reduction_fs': free(): invalid next size (fast): 0x0000000001d865e0 ***
+======= Backtrace: =========
+/lib/x86_64-linux-gnu/libc.so.6(+0x70bfb)[0x7fbff9c97bfb]
+/lib/x86_64-linux-gnu/libc.so.6(+0x76fc6)[0x7fbff9c9dfc6]
+/lib/x86_64-linux-gnu/libc.so.6(+0x7780e)[0x7fbff9c9e80e]
+./kmeans_omp_reduction_fs[0x401e43]
+./kmeans_omp_reduction_fs[0x401034]
+/lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0xf1)[0x7fbff9c472e1]
+./kmeans_omp_reduction_fs[0x400bfa]
+======= Memory map: ========
+00400000-00403000 r-xp 00000000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00602000-00603000 r--p 00002000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+00603000-00604000 rw-p 00003000 00:28 67805607                           /home/parallel/parlab09/ex2_dimitris/kmeans/kmeans_omp_reduction_fs
+01d7c000-01d9d000 rw-p 00000000 00:00 0                                  [heap]
+7fbeb8000000-7fbeb8021000 rw-p 00000000 00:00 0 
+7fbeb8021000-7fbebc000000 ---p 00000000 00:00 0 
+7fbebc000000-7fbebc021000 rw-p 00000000 00:00 0 
+7fbebc021000-7fbec0000000 ---p 00000000 00:00 0 
+7fbec0000000-7fbec0021000 rw-p 00000000 00:00 0 
+7fbec0021000-7fbec4000000 ---p 00000000 00:00 0 
+7fbec8000000-7fbec8021000 rw-p 00000000 00:00 0 
+7fbec8021000-7fbecc000000 ---p 00000000 00:00 0 
+7fbed0000000-7fbed0021000 rw-p 00000000 00:00 0 
+7fbed0021000-7fbed4000000 ---p 00000000 00:00 0 
+7fbed8000000-7fbed8021000 rw-p 00000000 00:00 0 
+7fbed8021000-7fbedc000000 ---p 00000000 00:00 0 
+7fbedc000000-7fbedc021000 rw-p 00000000 00:00 0 
+7fbedc021000-7fbee0000000 ---p 00000000 00:00 0 
+7fbee0000000-7fbee0021000 rw-p 00000000 00:00 0 
+7fbee0021000-7fbee4000000 ---p 00000000 00:00 0 
+7fbee4000000-7fbee4021000 rw-p 00000000 00:00 0 
+7fbee4021000-7fbee8000000 ---p 00000000 00:00 0 
+7fbee8000000-7fbee8021000 rw-p 00000000 00:00 0 
+7fbee8021000-7fbeec000000 ---p 00000000 00:00 0 
+7fbeec000000-7fbeec021000 rw-p 00000000 00:00 0 
+7fbeec021000-7fbef0000000 ---p 00000000 00:00 0 
+7fbef4000000-7fbef4021000 rw-p 00000000 00:00 0 
+7fbef4021000-7fbef8000000 ---p 00000000 00:00 0 
+7fbef8000000-7fbef8021000 rw-p 00000000 00:00 0 
+7fbef8021000-7fbefc000000 ---p 00000000 00:00 0 
+7fbefc000000-7fbefc021000 rw-p 00000000 00:00 0 
+7fbefc021000-7fbf00000000 ---p 00000000 00:00 0 
+7fbf00000000-7fbf00021000 rw-p 00000000 00:00 0 
+7fbf00021000-7fbf04000000 ---p 00000000 00:00 0 
+7fbf04000000-7fbf04021000 rw-p 00000000 00:00 0 
+7fbf04021000-7fbf08000000 ---p 00000000 00:00 0 
+7fbf08000000-7fbf08021000 rw-p 00000000 00:00 0 
+7fbf08021000-7fbf0c000000 ---p 00000000 00:00 0 
+7fbf0c000000-7fbf0c021000 rw-p 00000000 00:00 0 
+7fbf0c021000-7fbf10000000 ---p 00000000 00:00 0 
+7fbf10000000-7fbf10021000 rw-p 00000000 00:00 0 
+7fbf10021000-7fbf14000000 ---p 00000000 00:00 0 
+7fbf14000000-7fbf14021000 rw-p 00000000 00:00 0 
+7fbf14021000-7fbf18000000 ---p 00000000 00:00 0 
+7fbf18000000-7fbf18021000 rw-p 00000000 00:00 0 
+7fbf18021000-7fbf1c000000 ---p 00000000 00:00 0 
+7fbf1c000000-7fbf1c021000 rw-p 00000000 00:00 0 
+7fbf1c021000-7fbf20000000 ---p 00000000 00:00 0 
+7fbf20000000-7fbf20021000 rw-p 00000000 00:00 0 
+7fbf20021000-7fbf24000000 ---p 00000000 00:00 0 
+7fbf24000000-7fbf24021000 rw-p 00000000 00:00 0 
+7fbf24021000-7fbf28000000 ---p 00000000 00:00 0 
+7fbf28000000-7fbf28021000 rw-p 00000000 00:00 0 
+7fbf28021000-7fbf2c000000 ---p 00000000 00:00 0 
+7fbf2c000000-7fbf2c021000 rw-p 00000000 00:00 0 
+7fbf2c021000-7fbf30000000 ---p 00000000 00:00 0 
+7fbf30000000-7fbf30021000 rw-p 00000000 00:00 0 
+7fbf30021000-7fbf34000000 ---p 00000000 00:00 0 
+7fbf34000000-7fbf34021000 rw-p 00000000 00:00 0 
+7fbf34021000-7fbf38000000 ---p 00000000 00:00 0 
+7fbf38000000-7fbf38021000 rw-p 00000000 00:00 0 
+7fbf38021000-7fbf3c000000 ---p 00000000 00:00 0 
+7fbf3c000000-7fbf3c021000 rw-p 00000000 00:00 0 
+7fbf3c021000-7fbf40000000 ---p 00000000 00:00 0 
+7fbf40000000-7fbf40021000 rw-p 00000000 00:00 0 
+7fbf40021000-7fbf44000000 ---p 00000000 00:00 0 
+7fbf44000000-7fbf44021000 rw-p 00000000 00:00 0 
+7fbf44021000-7fbf48000000 ---p 00000000 00:00 0 
+7fbf48000000-7fbf48021000 rw-p 00000000 00:00 0 
+7fbf48021000-7fbf4c000000 ---p 00000000 00:00 0 
+7fbf4c000000-7fbf4c021000 rw-p 00000000 00:00 0 
+7fbf4c021000-7fbf50000000 ---p 00000000 00:00 0 
+7fbf50000000-7fbf50021000 rw-p 00000000 00:00 0 
+7fbf50021000-7fbf54000000 ---p 00000000 00:00 0 
+7fbf54000000-7fbf54021000 rw-p 00000000 00:00 0 
+7fbf54021000-7fbf58000000 ---p 00000000 00:00 0 
+7fbf58000000-7fbf58021000 rw-p 00000000 00:00 0 
+7fbf58021000-7fbf5c000000 ---p 00000000 00:00 0 
+7fbf5c000000-7fbf5c021000 rw-p 00000000 00:00 0 
+7fbf5c021000-7fbf60000000 ---p 00000000 00:00 0 
+7fbf60000000-7fbf60021000 rw-p 00000000 00:00 0 
+7fbf60021000-7fbf64000000 ---p 00000000 00:00 0 
+7fbf64000000-7fbf64021000 rw-p 00000000 00:00 0 
+7fbf64021000-7fbf68000000 ---p 00000000 00:00 0 
+7fbf68000000-7fbf68021000 rw-p 00000000 00:00 0 
+7fbf68021000-7fbf6c000000 ---p 00000000 00:00 0 
+7fbf6c000000-7fbf6c021000 rw-p 00000000 00:00 0 
+7fbf6c021000-7fbf70000000 ---p 00000000 00:00 0 
+7fbf70000000-7fbf70021000 rw-p 00000000 00:00 0 
+7fbf70021000-7fbf74000000 ---p 00000000 00:00 0 
+7fbf74000000-7fbf74021000 rw-p 00000000 00:00 0 
+7fbf74021000-7fbf78000000 ---p 00000000 00:00 0 
+7fbf78000000-7fbf78021000 rw-p 00000000 00:00 0 
+7fbf78021000-7fbf7c000000 ---p 00000000 00:00 0 
+7fbf7c000000-7fbf7c021000 rw-p 00000000 00:00 0 
+7fbf7c021000-7fbf80000000 ---p 00000000 00:00 0 
+7fbf80000000-7fbf80021000 rw-p 00000000 00:00 0 
+7fbf80021000-7fbf84000000 ---p 00000000 00:00 0 
+7fbf84000000-7fbf84021000 rw-p 00000000 00:00 0 
+7fbf84021000-7fbf88000000 ---p 00000000 00:00 0 
+7fbf88000000-7fbf88021000 rw-p 00000000 00:00 0 
+7fbf88021000-7fbf8c000000 ---p 00000000 00:00 0 
+7fbf8c000000-7fbf8c021000 rw-p 00000000 00:00 0 
+7fbf8c021000-7fbf90000000 ---p 00000000 00:00 0 
+7fbf90000000-7fbf90021000 rw-p 00000000 00:00 0 
+7fbf90021000-7fbf94000000 ---p 00000000 00:00 0 
+7fbf94000000-7fbf94021000 rw-p 00000000 00:00 0 
+7fbf94021000-7fbf98000000 ---p 00000000 00:00 0 
+7fbf98000000-7fbf98021000 rw-p 00000000 00:00 0 
+7fbf98021000-7fbf9c000000 ---p 00000000 00:00 0 
+7fbf9c000000-7fbf9c021000 rw-p 00000000 00:00 0 
+7fbf9c021000-7fbfa0000000 ---p 00000000 00:00 0 
+7fbfa0000000-7fbfa0021000 rw-p 00000000 00:00 0 
+7fbfa0021000-7fbfa4000000 ---p 00000000 00:00 0 
+7fbfa4000000-7fbfa4021000 rw-p 00000000 00:00 0 
+7fbfa4021000-7fbfa8000000 ---p 00000000 00:00 0 
+7fbfa8000000-7fbfa8021000 rw-p 00000000 00:00 0 
+7fbfa8021000-7fbfac000000 ---p 00000000 00:00 0 
+7fbfac000000-7fbfac021000 rw-p 00000000 00:00 0 
+7fbfac021000-7fbfb0000000 ---p 00000000 00:00 0 
+7fbfb0000000-7fbfb0021000 rw-p 00000000 00:00 0 
+7fbfb0021000-7fbfb4000000 ---p 00000000 00:00 0 
+7fbfb4000000-7fbfb4021000 rw-p 00000000 00:00 0 
+7fbfb4021000-7fbfb8000000 ---p 00000000 00:00 0 
+7fbfb8000000-7fbfb8021000 rw-p 00000000 00:00 0 
+7fbfb8021000-7fbfbc000000 ---p 00000000 00:00 0 
+7fbfbc000000-7fbfbc021000 rw-p 00000000 00:00 0 
+7fbfbc021000-7fbfc0000000 ---p 00000000 00:00 0 
+7fbfc0000000-7fbfc0021000 rw-p 00000000 00:00 0 
+7fbfc0021000-7fbfc4000000 ---p 00000000 00:00 0 
+7fbfc4000000-7fbfc4021000 rw-p 00000000 00:00 0 
+7fbfc4021000-7fbfc8000000 ---p 00000000 00:00 0 
+7fbfc97c8000-7fbfc97de000 r-xp 00000000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fbfc97de000-7fbfc99dd000 ---p 00016000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fbfc99dd000-7fbfc99de000 rw-p 00015000 00:29 201179142                  /various/common_tools/gcc-4.9.1/lib64/libgcc_s.so.1
+7fbfc99de000-7fbfc99df000 ---p 00000000 00:00 0 
+7fbfc99df000-7fbfca1df000 rw-p 00000000 00:00 0 
+7fbfca1df000-7fbfca1e0000 ---p 00000000 00:00 0 
+7fbfca1e0000-7fbfca9e0000 rw-p 00000000 00:00 0 
+7fbfca9e0000-7fbfca9e1000 ---p 00000000 00:00 0 
+7fbfca9e1000-7fbfcb1e1000 rw-p 00000000 00:00 0 
+7fbfcb1e1000-7fbfcb1e2000 ---p 00000000 00:00 0 
+7fbfcb1e2000-7fbfcb9e2000 rw-p 00000000 00:00 0 
+7fbfcb9e2000-7fbfcb9e3000 ---p 00000000 00:00 0 
+7fbfcb9e3000-7fbfcc1e3000 rw-p 00000000 00:00 0 
+7fbfcc1e3000-7fbfcc1e4000 ---p 00000000 00:00 0 
+7fbfcc1e4000-7fbfcc9e4000 rw-p 00000000 00:00 0 
+7fbfcc9e4000-7fbfcc9e5000 ---p 00000000 00:00 0 
+7fbfcc9e5000-7fbfcd1e5000 rw-p 00000000 00:00 0 
+7fbfcd1e5000-7fbfcd1e6000 ---p 00000000 00:00 0 
+7fbfcd1e6000-7fbfcd9e6000 rw-p 00000000 00:00 0 
+7fbfcd9e6000-7fbfcd9e7000 ---p 00000000 00:00 0 
+7fbfcd9e7000-7fbfce1e7000 rw-p 00000000 00:00 0 
+7fbfce1e7000-7fbfce1e8000 ---p 00000000 00:00 0 
+7fbfce1e8000-7fbfce9e8000 rw-p 00000000 00:00 0 
+7fbfce9e8000-7fbfce9e9000 ---p 00000000 00:00 0 
+7fbfce9e9000-7fbfcf1e9000 rw-p 00000000 00:00 0 
+7fbfcf1e9000-7fbfcf1ea000 ---p 00000000 00:00 0 
+7fbfcf1ea000-7fbfcf9ea000 rw-p 00000000 00:00 0 
+7fbfcf9ea000-7fbfcf9eb000 ---p 00000000 00:00 0 
+7fbfcf9eb000-7fbfd01eb000 rw-p 00000000 00:00 0 
+7fbfd01eb000-7fbfd01ec000 ---p 00000000 00:00 0 
+7fbfd01ec000-7fbfd09ec000 rw-p 00000000 00:00 0 
+7fbfd09ec000-7fbfd09ed000 ---p 00000000 00:00 0 
+7fbfd09ed000-7fbfd11ed000 rw-p 00000000 00:00 0 
+7fbfd11ed000-7fbfd11ee000 ---p 00000000 00:00 0 
+7fbfd11ee000-7fbfd19ee000 rw-p 00000000 00:00 0 
+7fbfd19ee000-7fbfd19ef000 ---p 00000000 00:00 0 
+7fbfd19ef000-7fbfd21ef000 rw-p 00000000 00:00 0 
+7fbfd21ef000-7fbfd21f0000 ---p 00000000 00:00 0 
+7fbfd21f0000-7fbfd29f0000 rw-p 00000000 00:00 0 
+7fbfd29f0000-7fbfd29f1000 ---p 00000000 00:00 0 
+7fbfd29f1000-7fbfd31f1000 rw-p 00000000 00:00 0 
+7fbfd31f1000-7fbfd31f2000 ---p 00000000 00:00 0 
+7fbfd31f2000-7fbfd39f2000 rw-p 00000000 00:00 0 
+7fbfd39f2000-7fbfd39f3000 ---p 00000000 00:00 0 
+7fbfd39f3000-7fbfd41f3000 rw-p 00000000 00:00 0 
+7fbfd41f3000-7fbfd41f4000 ---p 00000000 00:00 0 
+7fbfd41f4000-7fbfd49f4000 rw-p 00000000 00:00 0 
+7fbfd49f4000-7fbfd49f5000 ---p 00000000 00:00 0 
+7fbfd49f5000-7fbfd51f5000 rw-p 00000000 00:00 0 
+7fbfd51f5000-7fbfd51f6000 ---p 00000000 00:00 0 
+7fbfd51f6000-7fbfd59f6000 rw-p 00000000 00:00 0 
+7fbfd59f6000-7fbfd59f7000 ---p 00000000 00:00 0 
+7fbfd59f7000-7fbfd61f7000 rw-p 00000000 00:00 0 
+7fbfd61f7000-7fbfd61f8000 ---p 00000000 00:00 0 
+7fbfd61f8000-7fbfd69f8000 rw-p 00000000 00:00 0 
+7fbfd69f8000-7fbfd69f9000 ---p 00000000 00:00 0 
+7fbfd69f9000-7fbfd71f9000 rw-p 00000000 00:00 0 
+7fbfd71f9000-7fbfd71fa000 ---p 00000000 00:00 0 
+7fbfd71fa000-7fbfd79fa000 rw-p 00000000 00:00 0 
+7fbfd79fa000-7fbfd79fb000 ---p 00000000 00:00 0 
+7fbfd79fb000-7fbfd81fb000 rw-p 00000000 00:00 0 
+7fbfd81fb000-7fbfd81fc000 ---p 00000000 00:00 0 
+7fbfd81fc000-7fbfd89fc000 rw-p 00000000 00:00 0 
+7fbfd89fc000-7fbfd89fd000 ---p 00000000 00:00 0 
+7fbfd89fd000-7fbfd91fd000 rw-p 00000000 00:00 0 
+7fbfd91fd000-7fbfd91fe000 ---p 00000000 00:00 0 
+7fbfd91fe000-7fbfd99fe000 rw-p 00000000 00:00 0 
+7fbfd99fe000-7fbfd99ff000 ---p 00000000 00:00 0 
+7fbfd99ff000-7fbfda1ff000 rw-p 00000000 00:00 0 
+7fbfda1ff000-7fbfda200000 ---p 00000000 00:00 0 
+7fbfda200000-7fbfdaa00000 rw-p 00000000 00:00 0 
+7fbfdaa00000-7fbfdaa01000 ---p 00000000 00:00 0 
+7fbfdaa01000-7fbfdb201000 rw-p 00000000 00:00 0 
+7fbfdb201000-7fbfdb202000 ---p 00000000 00:00 0 
+7fbfdb202000-7fbfdba02000 rw-p 00000000 00:00 0 
+7fbfdba02000-7fbfdba03000 ---p 00000000 00:00 0 
+7fbfdba03000-7fbfdc203000 rw-p 00000000 00:00 0 
+7fbfdc203000-7fbfdc204000 ---p 00000000 00:00 0 
+7fbfdc204000-7fbfdca04000 rw-p 00000000 00:00 0 
+7fbfdca04000-7fbfdca05000 ---p 00000000 00:00 0 
+7fbfdca05000-7fbfdd205000 rw-p 00000000 00:00 0 
+7fbfdd205000-7fbfdd206000 ---p 00000000 00:00 0 
+7fbfdd206000-7fbfdda06000 rw-p 00000000 00:00 0 
+7fbfdda06000-7fbfdda07000 ---p 00000000 00:00 0 
+7fbfdda07000-7fbfde207000 rw-p 00000000 00:00 0 
+7fbfde207000-7fbfde208000 ---p 00000000 00:00 0 
+7fbfde208000-7fbfdea08000 rw-p 00000000 00:00 0 
+7fbfdea08000-7fbfdea09000 ---p 00000000 00:00 0 
+7fbfdea09000-7fbfdf209000 rw-p 00000000 00:00 0 
+7fbfdf209000-7fbfdf20a000 ---p 00000000 00:00 0 
+7fbfdf20a000-7fbfdfa0a000 rw-p 00000000 00:00 0 
+7fbfdfa0a000-7fbfdfa0b000 ---p 00000000 00:00 0 
+7fbfdfa0b000-7fbfe020b000 rw-p 00000000 00:00 0 
+7fbfe020b000-7fbfe020c000 ---p 00000000 00:00 0 
+7fbfe020c000-7fbfe0a0c000 rw-p 00000000 00:00 0 
+7fbfe0a0c000-7fbfe0a0d000 ---p 00000000 00:00 0 
+7fbfe0a0d000-7fbfe120d000 rw-p 00000000 00:00 0 
+7fbfe120d000-7fbfe120e000 ---p 00000000 00:00 0 
+7fbfe120e000-7fbfe1a0e000 rw-p 00000000 00:00 0 
+7fbfe1a0e000-7fbfe1a0f000 ---p 00000000 00:00 0 
+7fbfe1a0f000-7fbfe220f000 rw-p 00000000 00:00 0 
+7fbfe220f000-7fbfe2210000 ---p 00000000 00:00 0 
+7fbfe2210000-7fbfe2a10000 rw-p 00000000 00:00 0 
+7fbfe2a10000-7fbfe2a11000 ---p 00000000 00:00 0 
+7fbfe2a11000-7fbfe3211000 rw-p 00000000 00:00 0 
+7fbfe3211000-7fbfe3212000 ---p 00000000 00:00 0 
+7fbfe3212000-7fbfe3a12000 rw-p 00000000 00:00 0 
+7fbfe3a12000-7fbfe3a13000 ---p 00000000 00:00 0 
+7fbfe3a13000-7fbfe4213000 rw-p 00000000 00:00 0 
+7fbfe4213000-7fbfe4214000 ---p 00000000 00:00 0 
+7fbfe4214000-7fbfe4a14000 rw-p 00000000 00:00 0 
+7fbfe4a14000-7fbfe4a15000 ---p 00000000 00:00 0 
+7fbfe4a15000-7fbfe5215000 rw-p 00000000 00:00 0 
+7fbfe5215000-7fbfe5216000 ---p 00000000 00:00 0 
+7fbfe5216000-7fbfe5a16000 rw-p 00000000 00:00 0 
+7fbfe5a16000-7fbfe5a17000 ---p 00000000 00:00 0 
+7fbfe5a17000-7fbfe6217000 rw-p 00000000 00:00 0 
+7fbfe6217000-7fbfe6218000 ---p 00000000 00:00 0 
+7fbfe6218000-7fbfe6a18000 rw-p 00000000 00:00 0 
+7fbfe6a18000-7fbfe6a19000 ---p 00000000 00:00 0 
+7fbfe6a19000-7fbfe7219000 rw-p 00000000 00:00 0 
+7fbfe7219000-7fbfe721a000 ---p 00000000 00:00 0 
+7fbfe721a000-7fbfe7a1a000 rw-p 00000000 00:00 0 
+7fbfe7a1a000-7fbfe7a1b000 ---p 00000000 00:00 0 
+7fbfe7a1b000-7fbfe821b000 rw-p 00000000 00:00 0 
+7fbfe821b000-7fbfe821c000 ---p 00000000 00:00 0 
+7fbfe821c000-7fbfe8a1c000 rw-p 00000000 00:00 0 
+7fbfe8a1c000-7fbfe8a1d000 ---p 00000000 00:00 0 
+7fbfe8a1d000-7fbff9a1f000 rw-p 00000000 00:00 0 
+7fbff9a1f000-7fbff9a26000 r-xp 00000000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fbff9a26000-7fbff9c25000 ---p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fbff9c25000-7fbff9c26000 r--p 00006000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fbff9c26000-7fbff9c27000 rw-p 00007000 08:01 67109943                   /lib/x86_64-linux-gnu/librt-2.24.so
+7fbff9c27000-7fbff9dbc000 r-xp 00000000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fbff9dbc000-7fbff9fbc000 ---p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fbff9fbc000-7fbff9fc0000 r--p 00195000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fbff9fc0000-7fbff9fc2000 rw-p 00199000 08:01 67109842                   /lib/x86_64-linux-gnu/libc-2.24.so
+7fbff9fc2000-7fbff9fc6000 rw-p 00000000 00:00 0 
+7fbff9fc6000-7fbff9fde000 r-xp 00000000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fbff9fde000-7fbffa1dd000 ---p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fbffa1dd000-7fbffa1de000 r--p 00017000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fbffa1de000-7fbffa1df000 rw-p 00018000 08:01 67109936                   /lib/x86_64-linux-gnu/libpthread-2.24.so
+7fbffa1df000-7fbffa1e3000 rw-p 00000000 00:00 0 
+7fbffa1e3000-7fbffa1f8000 r-xp 00000000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fbffa1f8000-7fbffa3f7000 ---p 00015000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fbffa3f7000-7fbffa3f8000 rw-p 00014000 00:29 201179405                  /various/common_tools/gcc-4.9.1/lib64/libgomp.so.1.0.0
+7fbffa3f8000-7fbffa41b000 r-xp 00000000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fbffa605000-7fbffa607000 rw-p 00000000 00:00 0 
+7fbffa618000-7fbffa61b000 rw-p 00000000 00:00 0 
+7fbffa61b000-7fbffa61c000 r--p 00023000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fbffa61c000-7fbffa61d000 rw-p 00024000 08:01 67108931                   /lib/x86_64-linux-gnu/ld-2.24.so
+7fbffa61d000-7fbffa61e000 rw-p 00000000 00:00 0 
+7ffc83ffe000-7ffc8401f000 rw-p 00000000 00:00 0                          [stack]
+7ffc84171000-7ffc84173000 r--p 00000000 00:00 0                          [vvar]
+7ffc84173000-7ffc84175000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 r-xp 00000000 00:00 0                  [vsyscall]
+/var/spool/torque/mom_priv/jobs/527815.localhost.SC: line 22: 49746 Aborted                 ./kmeans_omp_reduction_fs -s 256 -n 16 -c 16 -l 10

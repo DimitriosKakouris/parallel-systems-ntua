@@ -45,7 +45,7 @@ file_io.o: file_io.c
 	
 	$(CC) $(CFLAGS) -c $< -o $@
 	# Hint : why is OMPFLAGS used here?	(when using it, need to include -fopenmp to LDFLAGS too)
-	#$(CC) $(OMPFLAGS) -c $< -o $@
+	# $(CC) $(OMPFLAGS) -c $< -o $@
 
 util.o: util.c
 	$(CC) $(CFLAGS) -c $< -o $@

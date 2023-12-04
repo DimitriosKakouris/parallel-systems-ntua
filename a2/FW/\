@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Loop over the different values of N
+for N in 1024 2048 4096; do
+
+    # Loop over the different values of B
+    for B in 64 128; do
+
+        ## Give the Job a descriptive name including N and B
+        #PBS -N run_omp_game_N_${N}_B_${B}
+
+        ## Output and error files including N and B
+        #PBS -o run_fw_N_${N}_B_${B}.out
+        #PBS -e run_fw_N_${N}_B_${B}.err
+
+        ## How many machines should we get? 
+        #PBS -l nodes=1:ppn=64
+
+        ## How long should the job run for?
+        #PBS -l walltime=00:10:00
+
+        ## Start 
+        ## Run make in the src folder (modify properly)
+
+        module load openmp
+        cd /home/parallel/parlab09/ex2_thomas/FW
+
+        # Loop over different thread counts
+        for threads in 1 2 4 6 8 16 32 64; do
+            export OMP_NUM_THREADS=${threads}
+            ./fw_sr_par2 ${N} ${B}
+        done
+
+    done
+
+done
+

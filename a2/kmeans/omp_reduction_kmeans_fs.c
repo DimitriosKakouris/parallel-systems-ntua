@@ -75,8 +75,8 @@ void kmeans(double * objects,          /* in: [numObjs][numCoords] */
 
     
     #define CACHE_LINE_SIZE 64
-    #define PADDING_INT (numClusters/(CACHE_LINE_SIZE/sizeof(int))+1)*sizeof(int) - numClusters;
-    #define PADDING_DOUBLE ((numClusters*numCoords)/(CACHE_LINE_SIZE/sizeof(double))+1)*sizeof(double) - numClusters*numCoords;
+    #define PADDING_INT ((numClusters/(CACHE_LINE_SIZE/sizeof(int))+1)*sizeof(int) - numClusters)
+    #define PADDING_DOUBLE (((numClusters*numCoords)/(CACHE_LINE_SIZE/sizeof(double))+1)*sizeof(double) - numClusters*numCoords)
     
     // Each thread calculates new centers using a private space. After that, thread 0 does an array reduction on them.
     int * local_newClusterSize[nthreads];  // [nthreads][numClusters] 

@@ -22,7 +22,7 @@ inv_n = n
 plt.figure(dpi=300)
 plt.xlabel('Threads')
 plt.ylabel('Time(Sec)')
-plt.title("Time vs. Number of threads - Reduction countering False Sharing \n with alt.config")
+plt.title("Time vs. Number of threads - Reduction countering False Sharing")
 # Use custom widths for bars
 for i, thread in enumerate(threads):
     plt.bar(thread, times[i], width=bar_widths[i], align='center', label=f"Thread {thread}" if i == 0 else "",color='maroon')

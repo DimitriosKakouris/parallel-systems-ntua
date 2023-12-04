@@ -17,5 +17,5 @@
 ## Run make in the src folder (modify properly)
 
 module load openmp
-cd <FIX_PATH>
+cd /home/parallel/parlab09/ex2_dimitris/FW
 make
