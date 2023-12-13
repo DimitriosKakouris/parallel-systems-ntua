@@ -16,7 +16,7 @@ def plot_speedup(speedups, thread_counts):
     plt.plot(x_ticks, speedups, marker='o', color='maroon')
     plt.xlabel('Number of Threads')
     plt.ylabel('Speedup')
-    plt.title("Time vs. Number of threads - Reduction countering False Sharing")
+    plt.title("Time vs. Number of threads - Reduction countering False Sharing \n with alt.config")
     plt.xticks(x_ticks, thread_counts)  # Set the labels to be the thread counts
     plt.savefig('Speedup' + '.png')
 
