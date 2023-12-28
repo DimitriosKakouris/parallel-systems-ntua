@@ -1,4 +1,4 @@
-cuda_kmeans_shared.cu(132): warning #177-D: variable "loop_iterations" was declared but never referenced
+cuda_kmeans_shared.cu(134): warning #177-D: variable "loop_iterations" was declared but never referenced
    int loop_iterations = 0;
        ^
 
@@ -9,3 +9,17 @@ ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdS_PiS_' f
 ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdS_PiS_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
 ptxas info    : Used 32 registers, 368 bytes cmem[0]
+cuda_kmeans_all_gpu.cu(244): error: argument of type "int *" is incompatible with parameter of type "double *"
+              (numCoords, numObjs, numClusters,deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
+                                                              ^
+
+cuda_kmeans_all_gpu.cu(244): error: argument of type "double *" is incompatible with parameter of type "int *"
+              (numCoords, numObjs, numClusters,deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
+                                                                                    ^
+
+cuda_kmeans_all_gpu.cu(244): error: too many arguments in function call
+              (numCoords, numObjs, numClusters,deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
+                                                                                                                       ^
+
+3 errors detected in the compilation of "cuda_kmeans_all_gpu.cu".
+make: *** [Makefile:70: ObjectDir/cuda_kmeans_all_gpu.o] Error 2

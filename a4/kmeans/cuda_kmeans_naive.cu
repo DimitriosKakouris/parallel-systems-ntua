@@ -115,6 +115,8 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
                 int blockSize)
 {
     double timing = wtime(), timing_internal, timer_min = 1e42, timer_max = 0;
+    double tmp_timer;
+    double CG_timer=0, GC_timer=0, G_timer=0, C_timer=0;
 	int    loop_iterations = 0; 
     int      i, j, index, loop=0;
     int     *newClusterSize; /* [numClusters]: no. objects assigned in each
@@ -170,10 +172,14 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
         
         checkCuda(cudaMemset(dev_delta_ptr, 0, sizeof(double)));          
 
+        CG_timer += wtime()-timing_internal;
+        tmp_timer = wtime();
 		//printf("Launching find_nearest_cluster Kernel with grid_size = %d, block_size = %d, shared_mem = %d KB\n", numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize/1000);
         find_nearest_cluster<<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>(numCoords, numObjs, numClusters,deviceObjects, deviceClusters, deviceMembership, dev_delta_ptr);
 
         cudaDeviceSynchronize(); checkLastCudaError();
+        G_timer += wtime()-tmp_timer;
+        tmp_timer = wtime();
 		//printf("Kernels complete for itter %d, updating data in CPU\n", loop);
 		
 		/* TODO: Copy deviceMembership to membership*/
@@ -181,7 +187,8 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     
     	/* TODO: Copy dev_delta_ptr to &delta*/
         checkCuda(cudaMemcpy(&delta,dev_delta_ptr, sizeof(double),cudaMemcpyDeviceToHost));
-
+        GC_timer += wtime()-tmp_timer;
+        tmp_timer = wtime();
 		/* CPU part: Update cluster centers*/
 		  		
         for (i=0; i<numObjs; i++) {
@@ -204,6 +211,7 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
             newClusterSize[i] = 0;   /* set back to 0 */
         }
 
+        C_timer += wtime() - tmp_timer;
         delta /= numObjs;
        	//printf("delta is %f - ", delta);
         loop++; 
@@ -216,6 +224,12 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     timing = wtime() - timing;
     printf("nloops = %d  : total = %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n|-------------------------------------------|\n", 
     	loop, 1000*timing, 1000*timing/loop, 1000*timer_min, 1000*timer_max);
+
+    printf("t_GPU->CPU = %lf ms\n", 1000*CG_timer); 
+   	printf("t_CPU->GPU = %lf ms\n", 1000*GC_timer); 
+   	printf("t_GPU = %lf ms\n", 1000*G_timer); 
+   	printf("t_CPU = %lf ms\n", 1000*C_timer); 
+
 
 	char outfile_name[1024] = {0}; 
 	sprintf(outfile_name, "Execution_logs/silver1-V100_Sz-%lu_Coo-%d_Cl-%d.csv", numObjs*numCoords*sizeof(double)/(1024*1024), numCoords, numClusters);

@@ -22,7 +22,7 @@ export CUDA_VISIBLE_DEVICES=2
 sizes='256'
 
 #coordinates='4'
-coordinates='16'
+coordinates='2'
 
 #centers='64'
 centers='16'
