@@ -53,23 +53,28 @@ void find_nearest_cluster(int numCoords,
                           int numObjs,
                           int numClusters,
                           double *deviceobjects,           //  [numCoords][numObjs]
+                         
 /*                          
                           TODO: If you choose to do (some of) the new centroid calculation here, you will need some extra parameters here (from "update_centroids").
-*/                          
+*/                        int *devicenewClusterSize,
                           double *deviceClusters,    //  [numCoords][numClusters]
                           int *deviceMembership,          //  [numObjs]
                           double *devdelta)
 {
      extern __shared__ double shmemClusters[];
 
-	/* TODO: Copy deviceClusters to shmemClusters so they can be accessed faster. 
-		BEWARE: Make sure operations is complete before any thread continues... */
 
-    for (int i = 0; i < numClusters; i++) {
-    for (int j = 0; j < numCoords; j++) {
-        shmemClusters[i*numClusters+j] = deviceClusters[i * numCoords + j];
+    int local_tid = threadIdx.x;
+
+	/* DONE: Copy deviceClusters to shmemClusters so they can be accessed faster. 
+		BEWARE: Make sure operations is complete before any thread continues... */
+    if (local_tid < numClusters) {
+        int i;
+        for (i=0; i<numCoords; i++) {
+            shmemClusters[i*numClusters + local_tid] = deviceClusters[i*numClusters + local_tid];
+        }
     }
-}
+    
     /* Sync all threads */
     __syncthreads();
 
@@ -84,11 +89,11 @@ void find_nearest_cluster(int numCoords,
         /* find the cluster id that has min distance to object */
         index = 0;
         /* TODO: call min_dist = euclid_dist_2(...) with correct objectId/clusterId using clusters in shmem*/
-        min_dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,deviceobjects,deviceClusters,tid,index);
+        min_dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,deviceobjects,shmemClusters,tid,index);
 
         for (i=1; i<numClusters; i++) {
             /* TODO: call dist = euclid_dist_2(...) with correct objectId/clusterId using clusters in shmem*/
-            dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,deviceobjects,deviceClusters,tid, i*numCoords);
+            dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,deviceobjects,shmemClusters,tid, i);
             /* no need square root */
             if (dist < min_dist) { /* find the min and its array index */
                 min_dist = dist;
@@ -107,6 +112,19 @@ void find_nearest_cluster(int numCoords,
     }
     
     	/* TODO: additional steps for calculating new centroids in GPU? */
+        
+           // Use atomic operations to avoid race conditions
+    if(tid < numObjs) {
+        int clusterId = deviceMembership[tid];
+        // for(int i = 0; i < numCoords; i++) {
+        //     atomicAdd(&deviceClusters[i * numClusters + clusterId], deviceobjects[i * numObjs + tid]);
+        // }
+        atomicAdd(&devicenewClusterSize[clusterId], 1);
+    }
+       __syncthreads(); // Synchronize to ensure all updates are completed
+
+
+
 }
 
 
@@ -119,18 +137,21 @@ void update_centroids(int numCoords,
 {
 
     /* TODO: additional steps for calculating new centroids in GPU? */
-    {
     int tid = get_tid();
-    int cluster = tid%numClusters;
-    int clusterSize;
 
-    if(tid<numClusters*numCoords) {
-        clusterSize = devicenewClusterSize[cluster];
-        if(clusterSize>0)
-            deviceClusters[tid] = devicenewClusters[tid]/clusterSize;
+      
+   // Average the sum for each cluster
+
+    if (tid < numClusters * numCoords) {
+        int clusterId = tid % numClusters;
+        int coordId = tid / numClusters;
+        if (devicenewClusterSize[clusterId] > 0) {
+            deviceClusters[coordId * numClusters + clusterId] = devicenewClusters[tid] / devicenewClusterSize[clusterId];
+        }
+        devicenewClusters[tid] = 0.0;  // Reset for next iteration
     }
 }
-}
+
 
 //
 //  ----------------------------------------
@@ -168,9 +189,9 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
     printf("\n|-----------Full-offload GPU Kmeans------------|\n\n");
     
     /* TODO: Copy me from transpose version*/
-	for (i = 0; i < numObjs; i++) {
-    for (j = 0; j < numCoords; j++) {
-        dimObjects[j][i] = objects[i * numCoords + j];
+  for (j = 0; j < numObjs; j++) {
+        for (i = 0; i < numCoords; i++) {
+        dimObjects[i][j] = objects[j * numCoords + i];
     }
 }
 	
@@ -237,11 +258,16 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
     do {
         timing_internal = wtime(); 
         checkCuda(cudaMemset(dev_delta_ptr, 0, sizeof(double)));          
-		//printf("Launching find_nearest_cluster Kernel with grid_size = %d, block_size = %d, shared_mem = %d KB\n", numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize/1000);
+		printf("Launching find_nearest_cluster Kernel with grid_size = %d, block_size = %d, shared_mem = %d KB\n", numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize/1000);
         /* TODO: change invocation if extra parameters needed  */
         find_nearest_cluster
-            <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
-            (numCoords, numObjs, numClusters,deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
+              <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
+            (numCoords, numObjs, numClusters,
+             deviceObjects, devicenewClusterSize,deviceClusters, deviceMembership, dev_delta_ptr);
+               //     <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
+        //     (numCoords, numObjs, numClusters,
+        //      deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
+
         
         cudaDeviceSynchronize(); checkLastCudaError();
 		//printf("Kernels complete for itter %d, updating data in CPU\n", loop);
@@ -252,7 +278,7 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
      	
         const unsigned int update_centroids_block_sz = (numCoords* numClusters > blockSize) ? blockSize: numCoords* numClusters;  /* TODO: can use different blocksize here if deemed better */
      	const unsigned int update_centroids_dim_sz =  (numCoords*numClusters + update_centroids_block_sz - 1) / update_centroids_block_sz; /* TODO: calculate dim for "update_centroids" and fire it */
-     	update_centroids<<< update_centroids_dim_sz, update_centroids_block_sz, 0 >>>
+        update_centroids<<< update_centroids_dim_sz, update_centroids_block_sz, 0 >>>
             (numCoords, numClusters, devicenewClusterSize, devicenewClusters, deviceClusters);
         cudaDeviceSynchronize(); checkLastCudaError();   
                        
@@ -276,15 +302,17 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
 		}
 	}
 	
+	
     timing = wtime() - timing;
     printf("nloops = %d  : total = %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n|-------------------------------------------|\n", 
     	loop, 1000*timing, 1000*timing/loop, 1000*timer_min, 1000*timer_max);
 
+
 	char outfile_name[1024] = {0}; 
-	sprintf(outfile_name, "Execution_logs/silver1-V100_Sz-%lu_Coo-%d_Cl-%d.csv", numObjs*numCoords*sizeof(double)/(1024*1024), numCoords, numClusters);
+	sprintf(outfile_name, "Execution_logs/All_GPU-silver1-V100_Sz-%lu_Coo-%d_Cl-%d.csv", numObjs*numCoords*sizeof(double)/(1024*1024), numCoords, numClusters);
 	FILE* fp = fopen(outfile_name, "a+");
 	if(!fp) error("Filename %s did not open succesfully, no logging performed\n", outfile_name); 
-	fprintf(fp, "%s,%d,%lf,%lf,%lf\n", "All_GPU", blockSize, timing/loop, timer_min, timer_max);
+	fprintf(fp, "%s,%d,%lf,%lf,%lf,%lf\n", "All_GPU", blockSize, timing/loop, timer_min, timer_max,timing);
 	fclose(fp); 
 	
     checkCuda(cudaFree(deviceObjects));

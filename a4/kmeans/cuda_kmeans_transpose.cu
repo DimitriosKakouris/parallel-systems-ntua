@@ -71,7 +71,7 @@ void find_nearest_cluster(int numCoords,
 
         for (i=1; i<numClusters; i++) {
             /* TODO: call dist = euclid_dist_2(...) with correct objectId/clusterId */
-            dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,objects,deviceClusters,tid, i*numCoords);
+            dist = euclid_dist_2_transpose(numCoords,numObjs,numClusters,objects,deviceClusters,tid, i);
  
             /* no need square root */
             if (dist < min_dist) { /* find the min and its array index */
@@ -116,9 +116,9 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
 				int blockSize)  
 {
     double timing = wtime(), timing_internal, timer_min = 1e42, timer_max = 0; 
-    double tmp_timer;
-    double CG_timer=0, GC_timer=0, G_timer=0, C_timer=0;
-	int    loop_iterations = 0; 
+    // double tmp_timer;
+    // double CG_timer=0, GC_timer=0, G_timer=0, C_timer=0;
+	// int    loop_iterations = 0; 
     int      i, j, index, loop=0;
     int     *newClusterSize; /* [numClusters]: no. objects assigned in each
                                 new cluster */
@@ -136,9 +136,11 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     printf("\n|-----------Transpose GPU Kmeans------------|\n\n");
     
     //  TODO: Copy objects given in [numObjs][numCoords] layout to new
-    for (i = 0; i < numObjs; i++) {
-    for (j = 0; j < numCoords; j++) {
-        dimObjects[j][i] = objects[i * numCoords + j];
+   
+	
+    for (j = 0; j < numObjs; j++) {
+        for (i = 0; i < numCoords; i++) {
+        dimObjects[i][j] = objects[j * numCoords + i];
     }
 }
 	
@@ -148,6 +150,8 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
             dimClusters[i][j] = dimObjects[i][j];
         }
     }
+
+    
 	
     /* initialize membership[] */
     for (i=0; i<numObjs; i++) membership[i] = -1;
@@ -179,35 +183,71 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     timing = wtime() - timing;
     printf("t_get_gpu: %lf ms\n\n", 1000*timing);
     timing = wtime();   
+
+
+    #ifdef TIMING_ANALYSIS
+    double gpu_time, gpu_cpu_time, cpu_time, cpu_gpu_time;
+    double gpu_time_arr[10];
+    double gpu_time_total = 0.0, gpu_cpu_time_total = 0.0, cpu_time_total = 0.0, cpu_gpu_time_total = 0.0;
+    double gpu_time_min = __DBL_MAX__, gpu_cpu_time_min = __DBL_MAX__, cpu_time_min = __DBL_MAX__, cpu_gpu_time_min = __DBL_MAX__;
+    double gpu_time_max = 0.0, gpu_cpu_time_max = 0.0, cpu_time_max = 0.0, cpu_gpu_time_max = 0.0;
+    double time_start, time_end;
+    #endif  
     
     do {
     	timing_internal = wtime();
 
+
+        #ifdef TIMING_ANALYSIS
+        time_start = wtime();
+        #endif
+
 		/* GPU part: calculate new memberships */
 		        
-        tmp_timer=wtime();
+        //tmp_timer=wtime();
         /* TODO: Copy clusters to deviceClusters */
         checkCuda(cudaMemcpy(deviceClusters,dimClusters[0],numClusters*numCoords*sizeof(double), cudaMemcpyHostToDevice));
         
-        checkCuda(cudaMemset(dev_delta_ptr, 0, sizeof(double)));          
+        checkCuda(cudaMemset(dev_delta_ptr, 0, sizeof(double))); 
 
-        CG_timer += wtime()-tmp_timer;
-        tmp_timer=wtime();
+        #ifdef TIMING_ANALYSIS
+        time_end = wtime();
+        cpu_gpu_time = time_end - time_start;
+        time_start = wtime();
+        #endif   
+
+
+        //CG_timer += wtime()-tmp_timer;
+        //tmp_timer=wtime();
 		//printf("Launching find_nearest_cluster Kernel with grid_size = %d, block_size = %d, shared_mem = %d KB\n", numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize/1000);
         find_nearest_cluster<<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>(numCoords, numObjs, numClusters,deviceObjects, deviceClusters, deviceMembership, dev_delta_ptr);
 
         cudaDeviceSynchronize(); checkLastCudaError();
-        G_timer += wtime() - timing_internal;
+
+        #ifdef TIMING_ANALYSIS
+        time_end = wtime();
+        gpu_time = time_end - time_start;
+        time_start = wtime();
+        #endif
+
+        //G_timer += wtime() - timing_internal;
 		//printf("Kernels complete for itter %d, updating data in CPU\n", loop);
 		
-        tmp_timer=wtime();
+        //tmp_timer=wtime();
 		/* TODO: Copy deviceMembership to membership*/
         checkCuda(cudaMemcpy(membership,deviceMembership,numObjs*sizeof(int), cudaMemcpyDeviceToHost));
     
     	/* TODO: Copy dev_delta_ptr to &delta*/
         checkCuda(cudaMemcpy(&delta,dev_delta_ptr, sizeof(double),cudaMemcpyDeviceToHost));
-        GC_timer += wtime()-tmp_timer;
-        tmp_timer=wtime();
+        //GC_timer += wtime()-tmp_timer;
+        //tmp_timer=wtime();
+
+        #ifdef TIMING_ANALYSIS
+        time_end = wtime();
+        gpu_cpu_time = time_end - time_start;
+        time_start = wtime();
+        #endif
+
 		/* CPU part: Update cluster centers*/
   		
         for (i=0; i<numObjs; i++) {
@@ -230,13 +270,37 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
             newClusterSize[i] = 0;   /* set back to 0 */
         }
 
-        C_timer += wtime() - tmp_timer;
+        //C_timer += wtime() - tmp_timer;
 
         
 
         delta /= numObjs;
        	//printf("delta is %f - ", delta);
         loop++; 
+
+
+
+
+        #ifdef TIMING_ANALYSIS
+        time_end = wtime();
+        cpu_time = time_end - time_start;
+        gpu_time_arr[loop] = gpu_time;
+
+        gpu_time_total += gpu_time;
+        gpu_cpu_time_total += gpu_cpu_time;
+        cpu_time_total += cpu_time;
+        cpu_gpu_time_total += cpu_gpu_time;
+        if (gpu_time < gpu_time_min) gpu_time_min = gpu_time;
+        if (gpu_time > gpu_time_max) gpu_time_max = gpu_time;
+        if (gpu_cpu_time < gpu_cpu_time_min) gpu_cpu_time_min = gpu_cpu_time;
+        if (gpu_cpu_time > gpu_cpu_time_max) gpu_cpu_time_max = gpu_cpu_time;
+        if (cpu_time < cpu_time_min) cpu_time_min = cpu_time;
+        if (cpu_time > cpu_time_max) cpu_time_max = cpu_time;
+        if (cpu_gpu_time < cpu_gpu_time_min) cpu_gpu_time_min = cpu_gpu_time;
+        if (cpu_gpu_time > cpu_gpu_time_max) cpu_gpu_time_max = cpu_gpu_time;
+        #endif
+
+
         //printf("completed loop %d\n", loop);
 		timing_internal = wtime() - timing_internal; 
 		if ( timing_internal < timer_min) timer_min = timing_internal; 
@@ -254,17 +318,37 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     printf("nloops = %d  : total = %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n|-------------------------------------------|\n", 
     	loop, 1000*timing, 1000*timing/loop, 1000*timer_min, 1000*timer_max);
 
-    printf("t_GPU->CPU = %lf ms\n", 1000*CG_timer); 
-   	printf("t_CPU->GPU = %lf ms\n", 1000*GC_timer); 
-   	printf("t_GPU = %lf ms\n", 1000*G_timer); 
-   	printf("t_CPU = %lf ms\n", 1000*C_timer); 
+    // printf("t_GPU->CPU = %lf ms\n", 1000*GC_timer); 
+   	// printf("t_CPU->GPU = %lf ms\n", 1000*CG_timer); 
+   	// printf("t_GPU = %lf ms\n", 1000*G_timer); 
+   	// printf("t_CPU = %lf ms\n", 1000*C_timer); 
+
+      // print timing information (avg, min, max) in each line
+    #ifdef TIMING_ANALYSIS
+    printf("GPU time: %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n", 
+    	1000*gpu_time_total, 1000*gpu_time_total/loop, 1000*gpu_time_min, 1000*gpu_time_max);
+    printf("GPU-CPU time: %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n",
+        1000*gpu_cpu_time_total, 1000*gpu_cpu_time_total/loop, 1000*gpu_cpu_time_min, 1000*gpu_cpu_time_max);
+    printf("CPU time: %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n",
+        1000*cpu_time_total, 1000*cpu_time_total/loop, 1000*cpu_time_min, 1000*cpu_time_max);
+    printf("CPU-GPU time: %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n",
+        1000*cpu_gpu_time_total, 1000*cpu_gpu_time_total/loop, 1000*cpu_gpu_time_min, 1000*cpu_gpu_time_max);
+    #endif
 
 
 	char outfile_name[1024] = {0}; 
 	sprintf(outfile_name, "Execution_logs/silver1-V100_Sz-%lu_Coo-%d_Cl-%d.csv", numObjs*numCoords*sizeof(double)/(1024*1024), numCoords, numClusters);
 	FILE* fp = fopen(outfile_name, "a+");
 	if(!fp) error("Filename %s did not open succesfully, no logging performed\n", outfile_name); 
-	fprintf(fp, "%s,%d,%lf,%lf,%lf\n", "Transpose", blockSize, timing/loop, timer_min, timer_max);
+
+    #ifndef TIMING_ANALYSIS
+	fprintf(fp, "%s,%d,%lf,%lf,%lf,%lf\n", "Transpose", blockSize, timing/loop, timer_min, timer_max,timing);
+    #endif
+    
+    #ifdef TIMING_ANALYSIS
+    fprintf(fp, "%s,%d,%lf,%lf,%lf,%lf,%lf,%lf,%lf,%lf \n", "Transpose", blockSize, timing/loop, timer_min, timer_max,timing,1000*gpu_cpu_time_total, 1000*cpu_gpu_time_total, 1000*gpu_time_total,1000*cpu_time_total);
+    #endif
+
 	fclose(fp); 
 	
     checkCuda(cudaFree(deviceObjects));

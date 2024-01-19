@@ -1,5 +1,22 @@
 #!/bin/bash
 
+## Give the Job a descriptive name
+#PBS -N run_kmeans
+
+## Output and error files
+#PBS -o run_kmeans.out
+#PBS -e run_kmeans.err
+
+## How many machines should we get? 
+#PBS -l nodes=1:ppn=40
+
+##How long should the job run for?
+#PBS -l walltime=00:30:00
+
+## Start 
+## Run make in the src folder (modify properly)
+
+cd /home/parallel/parlab09/ex4_dimitris/kmeans
 export CUDA_VISIBLE_DEVICES=1
 # sizes='2 8 32'
 # sizes='8'
@@ -16,7 +33,7 @@ sizes='256'
 # coordinates='128'
 # coordinates='2 4 8'
 #coordinates='1'
-coordinates='2 4 16 32'
+coordinates='16'
 
 # centers='256'
 # centers='64'
@@ -25,7 +42,7 @@ coordinates='2 4 16 32'
 # centers='2 4 16 64'
 # centers='2 4 16'
 
-centers='4 16 64'
+centers='16'
 
 loop_threashold='10'
 # loop_threashold='100''
@@ -36,17 +53,17 @@ progs=(
 	kmeans_seq
 	kmeans_cuda_naive
 	kmeans_cuda_transpose
-	#kmeans_cuda_shared
-	#kmeans_cuda_all_gpu
+	kmeans_cuda_shared
+	# kmeans_cuda_all_gpu
 	#kmeans_cuda_all_gpu_delta_reduction
 )
 
 for size in $sizes; do
     for coord in $coordinates; do
         for center in $centers; do
-        	filename=Execution_logs/Sz-${size}_Coo-${coord}_Cl-${center}.csv 
-        	echo "Implementation,blockSize,av_loop_t,min_loop_t,max_loop_t" >> $filename
-            for prog dimClustersin "${progs[@]}"; do
+        	# filename=Execution_logs/Sz-${size}_Coo-${coord}_Cl-${center}.csv 
+        	# echo "Implementation,blockSize,av_loop_t,min_loop_t,max_loop_t" >> $filename
+            for prog in "${progs[@]}"; do
             	if [[ $prog == 'kmeans_seq' ]]; then
 		            ./${prog} -s $size -n $coord -c $center -l $loop_threashold
 		        fi

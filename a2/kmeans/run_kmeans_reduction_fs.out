@@ -22,7 +22,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 1)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  7.9973s)  (per loop =  0.7997s)
+        nloops =  10   (total =  9.4497s)  (per loop =  0.9450s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -65,7 +65,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 2)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  4.1210s)  (per loop =  0.4121s)
+        nloops =  10   (total =  4.7861s)  (per loop =  0.4786s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -108,7 +108,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 4)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  2.1437s)  (per loop =  0.2144s)
+        nloops =  10   (total =  2.4040s)  (per loop =  0.2404s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -151,7 +151,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 8)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  1.1886s)  (per loop =  0.1189s)
+        nloops =  10   (total =  1.2350s)  (per loop =  0.1235s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -194,7 +194,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 16)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  1.6375s)  (per loop =  0.1638s)
+        nloops =  10   (total =  1.1866s)  (per loop =  0.1187s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -237,7 +237,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 32)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  1.0169s)  (per loop =  0.1017s)
+        nloops =  10   (total =  0.7199s)  (per loop =  0.0720s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 
@@ -280,7 +280,7 @@ clusters[15] =   9.97   5.78   4.44   1.06   8.12   0.21   0.43   8.79   5.76   
 
 OpenMP Kmeans - Reduction	(number of threads: 64)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  0.8779s)  (per loop =  0.0878s)
+        nloops =  10   (total =  0.9361s)  (per loop =  0.0936s)
 
 Final cluster centers:
 clusters[0] =   3.01   6.89   6.33   2.56   6.06   6.11   6.17   7.01   5.61   4.66   5.22   4.85   5.45   3.57   5.29   3.51 

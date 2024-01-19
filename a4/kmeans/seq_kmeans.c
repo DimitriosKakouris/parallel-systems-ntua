@@ -130,7 +130,7 @@ void kmeans(double * objects,          /* in: [numObjs][numCoords] */
 	sprintf(outfile_name, "Execution_logs/Sz-%lu_Coo-%d_Cl-%d.csv", numObjs*numCoords*sizeof(double)/(1024*1024), numCoords, numClusters);
 	FILE* fp = fopen(outfile_name, "a+");
 	if(!fp){ printf("Filename %s did not open succesfully, no logging performed\n", outfile_name); exit(42); }
-	fprintf(fp, "%s,%d,%lf,%lf,%lf\n", "Sequential", -1, timing/loop, timer_min, timer_max);
+	fprintf(fp, "%s,%d,%lf,%lf,%lf,%lf\n", "Sequential", -1, timing/loop, timer_min, timer_max,timing);
 	fclose(fp); 
 	
     free(newClusters);

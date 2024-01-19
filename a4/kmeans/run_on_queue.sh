@@ -18,11 +18,12 @@
 
 cd /home/parallel/parlab09/ex4_dimitris/kmeans
 export CUDA_VISIBLE_DEVICES=2
+
 # sizes='32 64 128 256 512 1024 2048'
 sizes='256'
 
 #coordinates='4'
-coordinates='2'
+coordinates='16'
 
 #centers='64'
 centers='16'
@@ -37,7 +38,7 @@ progs=(
 	kmeans_cuda_naive
 	kmeans_cuda_transpose
 	kmeans_cuda_shared
-	# kmeans_cuda_all_gpu
+	kmeans_cuda_all_gpu
 	# kmeans_cuda_all_gpu_delta_reduction
 )
 
@@ -52,19 +53,19 @@ for size in $sizes; do
 				fi
 				for bs in $block_size; do
 					if [[ $prog == 'kmeans_cuda_naive' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs -TIMING_ANALYSIS 
 					elif [[ $prog == 'kmeans_cuda_transpose' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs -TIMING_ANALYSIS
 					elif [[ $prog == 'kmeans_cuda_shared' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs -TIMING_ANALYSIS
 					elif [[ $prog == 'kmeans_cuda_all_gpu' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs 
 					elif [[ $prog == 'kmeans_cuda_all_gpu_delta_reduction' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs 
 					elif [[ $prog == 'kmeans_cuda_all_gpu_reduction' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs 
 					elif [[ $prog == 'kmeans_cuda_gitman' ]]; then
-						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs
+						./${prog} -s $size -n $coord -c $center -l $loop_threashold -b $bs 
 					fi
 				done
 			done

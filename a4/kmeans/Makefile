@@ -7,10 +7,10 @@ CPP          = g++
 NVCC        = /usr/local/cuda-12.1/bin/nvcc
 
 # TODO: Enable VALIDATE when implementing new versions to check results in respect to serial execution.  
-#VALIDATE_FLAG=-DVALIDATE
+# VALIDATE_FLAG=-DVALIDATE
 #VALIDATE_FLAG=#IMPORTANT: Disable in long benchmarks if correctness is established.
 
-CFLAGS  = -O3 -I$(HELPER_DIR) $(VALIDATE_FLAG)
+CFLAGS  = -O3 -I$(HELPER_DIR) $(VALIDATE_FLAG) -D TIMING_ANALYSIS
 NVCCFLAGS   =$(CFLAGS) --ptxas-options=-v -arch=sm_60\
 #-gencode=arch=compute_35,code=sm_35\
 #-gencode=arch=compute_52,code=sm_52\
@@ -28,9 +28,12 @@ LIBS        =
 SEQ_HELP_OBJ = $(OBJECT_DIR)/main_sec.o $(OBJECT_DIR)/file_io.o $(OBJECT_DIR)/util.o 
 CUDA_HELP_OBJ = $(OBJECT_DIR)/main_gpu.o  $(OBJECT_DIR)/file_io.o $(OBJECT_DIR)/util.o $(OBJECT_DIR)/error.o $(OBJECT_DIR)/alloc.o $(OBJECT_DIR)/seq_kmeans.o
 
-all: kmeans_seq kmeans_cuda_naive kmeans_cuda_transpose kmeans_cuda_shared kmeans_cuda_all_gpu kmeans_cuda_all_gpu_delta_reduction
+all: kmeans_seq kmeans_cuda_naive kmeans_cuda_transpose kmeans_cuda_shared kmeans_cuda_all_gpu 
+#kmeans_cuda_all_gpu_delta_reduction get_gpu_info
 
 #---------------------------------------------------------------------
+get_gpu_info: get_gpu_info.cu
+	$(NVCC) $(NVCCFLAGS) $^ -o $@
 
 kmeans_seq: $(OBJECT_DIR)/seq_kmeans.o $(SEQ_HELP_OBJ)
 	$(CPP) $(CFLAGS) $^ -o $@ $(LDFLAGS)

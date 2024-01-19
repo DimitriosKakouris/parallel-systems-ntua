@@ -1,2 +1,13 @@
+gcc -Wall -Wextra -Wno-unused -O3 -c main.c -o main.o
+gcc -Wall -Wextra -Wno-unused -O3 -c file_io.c -o file_io.o
+# Hint : why is OMPFLAGS used here?	(when using it, need to include -fopenmp to LDFLAGS too)
+# gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c file_io.c -o file_io.o
+gcc -Wall -Wextra -Wno-unused -O3 -c util.c -o util.o
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c omp_reduction_kmeans.c -o omp_reduction_kmeans.o
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 main.o file_io.o util.o omp_reduction_kmeans.o -o kmeans_omp_reduction 
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c omp_naive_kmeans.c -o omp_naive_kmeans.o
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 main.o file_io.o util.o omp_naive_kmeans.o -o kmeans_omp_naive 
 gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c omp_reduction_kmeans_fs.c -o omp_reduction_kmeans_fs.o
 gcc -fopenmp -Wall -Wextra -Wno-unused -O3 main.o file_io.o util.o omp_reduction_kmeans_fs.o -o kmeans_omp_reduction_fs 
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 -c omp_reduction_kmeans_fs_numa.c -o omp_reduction_kmeans_fs_numa.o
+gcc -fopenmp -Wall -Wextra -Wno-unused -O3 main.o file_io.o util.o omp_reduction_kmeans_fs_numa.o -o kmeans_omp_reduction_fs_numa 

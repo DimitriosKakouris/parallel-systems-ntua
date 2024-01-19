@@ -1,0 +1,2 @@
+mpicc -O3 -lm -Wall mpi_jacobi.c utils.c -o jacobi
+mpicc -O3 -lm -Wall -DTEST_CONV mpi_jacobi.c utils.c -o jacobi_conv

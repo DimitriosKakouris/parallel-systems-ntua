@@ -10,7 +10,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 1)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  5.0505s)  (per loop =  0.5051s)
+        nloops =  10   (total =  6.4234s)  (per loop =  0.6423s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -29,7 +29,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 2)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  3.8209s)  (per loop =  0.3821s)
+        nloops =  10   (total =  3.9445s)  (per loop =  0.3944s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -48,7 +48,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 4)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  2.9596s)  (per loop =  0.2960s)
+        nloops =  10   (total =  3.4017s)  (per loop =  0.3402s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -67,7 +67,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 8)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  3.2170s)  (per loop =  0.3217s)
+        nloops =  10   (total =  1.2290s)  (per loop =  0.1229s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -86,7 +86,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 16)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  7.0646s)  (per loop =  0.7065s)
+        nloops =  10   (total =  2.1188s)  (per loop =  0.2119s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -105,7 +105,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 32)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  9.6964s)  (per loop =  0.9696s)
+        nloops =  10   (total =  7.7636s)  (per loop =  0.7764s)
 
 Final cluster centers:
 clusters[0] =   1.08 
@@ -124,7 +124,7 @@ clusters[3] =   6.66
 
 OpenMP Kmeans - Reduction	(number of threads: 64)
 	completed loop 1	completed loop 2	completed loop 3	completed loop 4	completed loop 5	completed loop 6	completed loop 7	completed loop 8	completed loop 9	completed loop 10
-        nloops =  10   (total =  2.6381s)  (per loop =  0.2638s)
+        nloops =  10   (total =  9.4804s)  (per loop =  0.9480s)
 
 Final cluster centers:
 clusters[0] =   1.08 

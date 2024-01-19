@@ -1,59 +1,30 @@
-import re
+import csv
 import matplotlib.pyplot as plt
 import os
+
 import sys
+
 
 def extract_data(filename):
     data = {}
-    current_block_size = None
-    current_type = None
-
     with open(filename, 'r') as file:
- 
-        for line in file:
-            # Check for block size
-            block_size_match = re.search(r'block_size = (\d+)', line)
-            if block_size_match:
-                current_block_size = int(block_size_match.group(1))
-                continue
-
-            # Check for section header
-            header_match = re.search(r'\|\-(.+?)\-\|', line)
-            if header_match:
-                current_type = header_match.group(1).strip()
-                continue
-
-            # Check for total time
-            if current_type and current_block_size is not None:
-                total_time_match = re.search(r'total = ([\d.]+) ms', line)
-                if total_time_match:
-                    total_time = float(total_time_match.group(1))
-                    if current_type not in data:
-                        data[current_type] = []
-                    data[current_type].append((current_block_size, total_time))
-
-    with open(filename, 'r') as file:
-        lines = file.readlines()
-        for i, line in enumerate(lines):
-            
-            if "|-------------Sequential Kmeans-------------|" in line:
-                total_line = lines[i+4]
-                total_seq = total_line.split('=')[2].strip().split(' ')[0]
-                break
-        for key in data:
-            data[key].insert(0,(-1, float(total_seq)))
-                
-    print(data)
+        reader = csv.reader(file)
+        for row in reader:
+            type = row[0]
+            block_size = int(row[1])
+            exec_time = float(row[-1])
+            if type not in data:
+                data[type] = []
+            data[type].append((block_size, exec_time*1000))
+      
     return data
 
-def plot_data(data, directory='.'):
-    sequential_time = None
-    for key in data:
-            sequential_time = data[key][0][1]
 
-            data[key].pop(0)
+def plot_data(data, directory='.'):
+    sequential_time = 9.710023*1000
     
     for type, values in data.items():
+      
         values.sort(key=lambda x: x[0])  # Sort by block size
         block_sizes = [x[0] for x in values]
         exec_times = [x[1] for x in values]
