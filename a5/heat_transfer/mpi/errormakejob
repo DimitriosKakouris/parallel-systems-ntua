@@ -18,3 +18,35 @@ mpi_jacobi.c:29:12: warning: variable 'omega' set but not used [-Wunused-but-set
 mpi_jacobi.c:180:9: warning: 'U' may be used uninitialized in this function [-Wmaybe-uninitialized]
          free2d(U);
          ^
+mpi_gs.c: In function 'main':
+mpi_gs.c:24:28: warning: unused variable 'converged' [-Wunused-variable]
+     int global_converged=0,converged=0; //flags for convergence, global and per process
+                            ^
+mpi_gs.c:24:9: warning: unused variable 'global_converged' [-Wunused-variable]
+     int global_converged=0,converged=0; //flags for convergence, global and per process
+         ^
+mpi_gs.c:592:5: warning: 'scattercounts' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     MPI_Gatherv(
+     ^
+mpi_gs.c:592:5: warning: 'scatteroffset' may be used uninitialized in this function [-Wmaybe-uninitialized]
+mpi_gs.c: In function 'main':
+mpi_gs.c:592:5: warning: 'scattercounts' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     MPI_Gatherv(
+     ^
+mpi_gs.c:592:5: warning: 'scatteroffset' may be used uninitialized in this function [-Wmaybe-uninitialized]
+mpi_rb.c: In function 'main':
+mpi_rb.c:33:28: warning: unused variable 'converged' [-Wunused-variable]
+     int global_converged=0,converged=0; //flags for convergence, global and per process
+                            ^
+mpi_rb.c:33:9: warning: unused variable 'global_converged' [-Wunused-variable]
+     int global_converged=0,converged=0; //flags for convergence, global and per process
+         ^
+mpi_rb.c:655:5: warning: 'scattercounts' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     MPI_Gatherv(
+     ^
+mpi_rb.c:655:5: warning: 'scatteroffset' may be used uninitialized in this function [-Wmaybe-uninitialized]
+mpi_rb.c: In function 'main':
+mpi_rb.c:655:5: warning: 'scattercounts' may be used uninitialized in this function [-Wmaybe-uninitialized]
+     MPI_Gatherv(
+     ^
+mpi_rb.c:655:5: warning: 'scatteroffset' may be used uninitialized in this function [-Wmaybe-uninitialized]

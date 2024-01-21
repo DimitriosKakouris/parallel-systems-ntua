@@ -1,62 +1,73 @@
-
 import re
-import matplotlib.pyplot as plt
-import os
+import csv
 import sys
+import matplotlib.pyplot as plt
+import numpy as np
 
-def extract_times(filename):
-    with open(filename, 'r') as file:
-        lines = file.readlines()
+# Function to parse the data and write to CSV
+def parse_data_to_csv(file_name,csv_file_name):
+    with open(file_name, 'r') as file:
+        data = file.read()
+    pattern = r'(\w+) X (\d+) Y (\d+) Px (\d+) Py (\d+) Iter (\d+) ComputationTime ([\d.]+) TotalTime ([\d.]+)'
+    matches = re.finditer(pattern, data)
 
-    times = {2048: [], 4096: [], 6144: []}
+    with open(csv_file_name, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Method', 'GridSizeX', 'GridSizeY', 'Px', 'Py', 'Iterations', 'ComputationTime', 'TotalTime'])
 
-    for line in lines:
-        words = line.split()
-        grid_size = int(words[2])
-        computation_time = float(words[words.index('ComputationTime') + 1])
-        total_time = float(words[words.index('TotalTime') + 1])
+        for match in matches:
+            writer.writerow([
+                match.group(1),
+                int(match.group(2)),
+                int(match.group(3)),
+                int(match.group(4)),
+                int(match.group(5)),
+                int(match.group(6)),
+                float(match.group(7)),
+                float(match.group(8))
+            ])
 
-        if grid_size in times:
-            times[grid_size].append((computation_time, total_time))
 
-    return times
 
-def plot_data(times, grid):
-    print(times)
 
-    proc = [1,2,4 ,8, 16, 32, 64]
+# Function to read the CSV file and return data organized by grid size and MPI process configuration
+def read_csv_data(csv_file_name):
+    data = {}
+    with open(csv_file_name, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            key = (row['GridSizeX'], row['GridSizeY'], row['Px'], row['Py'])
+            if key not in data:
+                data[key] = []
+            data[key].append(row)
+    return data
 
-    exec_times = times[grid]
-    computation_times = [x[0] for x in exec_times]
-    # computation_times = [computation_times[0]/x for x in computation_times]
+# Function to plot the data
+def plot_data(data):
+    for key in data.keys():
+        methods = [row['Method'] for row in data[key]]
+        computation_times = [float(row['ComputationTime']) for row in data[key]]
+        total_times = [float(row['TotalTime']) for row in data[key]]
 
-    total_times = [x[1] for x in exec_times]
-    # total_times = [total_times[0]/x for x in total_times]
+        # Creating bar plots
+        plt.figure(figsize=(10, 6))
+        x = np.arange(len(methods))
 
-    # computation_times = computation_times[3:len(computation_times)]
-    # total_times = total_times[3:len(total_times)]
-    bar_width = 0.35
-    # Using indices for equally spaced x-axis values
-    indices = range(len(proc))
 
-    # Plot the computation times as bars
-    plt.figure(figsize=(10, 6))
-    plt.bar(indices, computation_times, bar_width, color='maroon', label='Computation Time')
+        bar_width = 0.4
+        plt.bar(x - bar_width/2, computation_times, width=bar_width, label='Computation Time', align='center')
+        plt.bar(x + bar_width/2, total_times, width=bar_width, label='Total Time', align='center')
 
-    # Plot the total times as bars next to the computation times
-    plt.bar([x + bar_width for x in indices], total_times, bar_width, color='blue', label='Total Time')
+        plt.xlabel('Method')
+        plt.ylabel('Time (seconds)')
+        plt.title(f'Execution Times for Grid Size {key[0]}x{key[1]} and MPI Processes {int(key[2])*int(key[3])}')
+        plt.xticks(x, methods)
+        plt.legend()
+        plt.savefig(f'Execution_times_{key[0]}_{int(key[2])*int(key[3])}.png',dpi=300)
 
-    plt.title(f"Jacobi_{grid}_Time_plot")
-    plt.xlabel("Processes")
-    plt.ylabel("Time")
-    plt.xticks([x + bar_width / 2 for x in indices], proc)  # Set x-axis ticks labels to processes
-    plt.legend()  # Show legend for the two bars
-    plt.grid(True, which='both', axis='both', linestyle='--', linewidth=0.5)
-
-    plt.savefig(f"Jacobi_{grid}_Time_plot", dpi=300)
-    plt.close()
-
-filename = sys.argv[1]
-grid = int(sys.argv[2])
-times = extract_times(filename)
-plot_data(times,grid)
+# Usage
+file_name = sys.argv[1]  # Use your file name
+parse_data_to_csv(file_name, 'all_noconv.csv')
+csv_file_name = 'all_noconv.csv'
+data = read_csv_data(csv_file_name)
+plot_data(data)

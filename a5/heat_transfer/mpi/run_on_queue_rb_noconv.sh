@@ -4,8 +4,8 @@
 #PBS -N runjob
 
 ## Output and error files
-#PBS -o jacobi_noconv.out
-#PBS -e jacobi_noconv.err
+#PBS -o rb_noconv.out
+#PBS -e rb_noconv.err
 
 ## How many machines should we get?
 #PBS -l nodes=8:ppn=8
@@ -30,7 +30,7 @@ for size in $sizes
 do 
     for i in "${!threads[@]}"
     do
-       mpirun --mca btl tcp,self -np ${threads[$i]} --map-by node ./jacobi $size $size ${threads1[$i]} ${threads2[$i]} 
+       mpirun --mca btl tcp,self -np ${threads[$i]} --map-by node ./rb $size $size ${threads1[$i]} ${threads2[$i]} 
     done
 done
 
