@@ -16,12 +16,6 @@ main_sec.c:15:9: warning: ISO C++ forbids converting a string constant to 'char*
       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
    22 |         "       -h                 : print this help information\n";
       |         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-cuda_kmeans_naive.cu(168): warning #550-D: variable "gpu_time_arr" was set but never used
-      double gpu_time_arr[10];
-             ^
-
-Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-
 ptxas info    : 0 bytes gmem
 ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdS_PiS_' for 'sm_60'
 ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdS_PiS_
@@ -60,35 +54,23 @@ main_gpu.cu(51): warning #177-D: variable "io_timing_read" was declared but neve
              ^
 
 ptxas info    : 0 bytes gmem
-cuda_kmeans_transpose.cu(190): warning #550-D: variable "gpu_time_arr" was set but never used
-      double gpu_time_arr[10];
-             ^
-
-Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-
 ptxas info    : 0 bytes gmem
 ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdS_PiS_' for 'sm_60'
 ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdS_PiS_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
 ptxas info    : Used 40 registers, 368 bytes cmem[0]
-cuda_kmeans_shared.cu(232): warning #550-D: variable "gpu_time_arr" was set but never used
-      double gpu_time_arr[10];
-             ^
-
-Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-
 ptxas info    : 0 bytes gmem
 ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdS_PiS_' for 'sm_60'
 ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdS_PiS_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
 ptxas info    : Used 32 registers, 368 bytes cmem[0]
-cuda_kmeans_all_gpu.cu(181): warning #177-D: variable "loop_iterations" was declared but never referenced
+cuda_kmeans_all_gpu.cu(183): warning #177-D: variable "loop_iterations" was declared but never referenced
    int loop_iterations = 0;
        ^
 
 Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
 
-cuda_kmeans_all_gpu.cu(182): warning #177-D: variable "index" was declared but never referenced
+cuda_kmeans_all_gpu.cu(184): warning #177-D: variable "index" was declared but never referenced
       int i, j, index, loop=0;
                 ^
 
@@ -97,7 +79,7 @@ ptxas info    : Compiling entry function '_Z16update_centroidsiiPiPdS0_' for 'sm
 ptxas info    : Function properties for _Z16update_centroidsiiPiPdS0_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
 ptxas info    : Used 24 registers, 352 bytes cmem[0], 32 bytes cmem[2]
-ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdPiS_S0_S_' for 'sm_60'
-ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdPiS_S0_S_
+ptxas info    : Compiling entry function '_Z20find_nearest_clusteriiiPdS_PiS_S0_S_' for 'sm_60'
+ptxas info    : Function properties for _Z20find_nearest_clusteriiiPdS_PiS_S0_S_
     0 bytes stack frame, 0 bytes spill stores, 0 bytes spill loads
-ptxas info    : Used 32 registers, 376 bytes cmem[0]
+ptxas info    : Used 32 registers, 384 bytes cmem[0]

@@ -33,7 +33,7 @@ sizes='256'
 # coordinates='128'
 # coordinates='2 4 8'
 #coordinates='1'
-coordinates='16'
+coordinates='2'
 
 # centers='256'
 # centers='64'
@@ -51,10 +51,10 @@ block_size='32 64 128 256 512 1024'
 
 progs=(
 	kmeans_seq
-	kmeans_cuda_naive
-	kmeans_cuda_transpose
-	kmeans_cuda_shared
-	# kmeans_cuda_all_gpu
+	# kmeans_cuda_naive
+	# kmeans_cuda_transpose
+	# kmeans_cuda_shared
+	kmeans_cuda_all_gpu
 	#kmeans_cuda_all_gpu_delta_reduction
 )
 

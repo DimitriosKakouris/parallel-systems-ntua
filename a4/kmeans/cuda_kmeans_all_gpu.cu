@@ -53,8 +53,9 @@ void find_nearest_cluster(int numCoords,
                           int numObjs,
                           int numClusters,
                           double *deviceobjects,           //  [numCoords][numObjs]
+                          double *devicenewClusters,    //  [numCoords][numClusters]
                          
-/*                          
+/*                
                           TODO: If you choose to do (some of) the new centroid calculation here, you will need some extra parameters here (from "update_centroids").
 */                        int *devicenewClusterSize,
                           double *deviceClusters,    //  [numCoords][numClusters]
@@ -109,23 +110,25 @@ void find_nearest_cluster(int numCoords,
 
         /* assign the deviceMembership to object objectId */
         deviceMembership[tid] = index;
-    }
+    
     
     	/* TODO: additional steps for calculating new centroids in GPU? */
+        // __syncthreads();
         
-           // Use atomic operations to avoid race conditions
-    if(tid < numObjs) {
-        int clusterId = deviceMembership[tid];
-        // for(int i = 0; i < numCoords; i++) {
-        //     atomicAdd(&deviceClusters[i * numClusters + clusterId], deviceobjects[i * numObjs + tid]);
-        // }
-        atomicAdd(&devicenewClusterSize[clusterId], 1);
+          // Atomic operations for updating cluster size and centroid in global memory
+        atomicAdd(&(devicenewClusterSize[index]), 1);
+        
+        for(int i = 0; i < numCoords; i++) {
+            atomicAdd(&(devicenewClusters[i * numClusters + index]), deviceobjects[i * numObjs + tid]);
+        }
+
+     
     }
-       __syncthreads(); // Synchronize to ensure all updates are completed
 
 
 
 }
+   
 
 
 __global__ static
@@ -136,25 +139,24 @@ void update_centroids(int numCoords,
                           double *deviceClusters)    //  [numCoords][numClusters])
 {
 
-    /* TODO: additional steps for calculating new centroids in GPU? */
+ 
     int tid = get_tid();
-
+    if (tid < numClusters*numCoords) {
+        int coordId = tid % numCoords;
+        int clusterId = tid / numCoords;
       
-   // Average the sum for each cluster
-
-    if (tid < numClusters * numCoords) {
-        int clusterId = tid % numClusters;
-        int coordId = tid / numClusters;
-        if (devicenewClusterSize[clusterId] > 0) {
-            deviceClusters[coordId * numClusters + clusterId] = devicenewClusters[tid] / devicenewClusterSize[clusterId];
-        }
-        devicenewClusters[tid] = 0.0;  // Reset for next iteration
+        if (devicenewClusterSize[clusterId] > 0)
+            deviceClusters[coordId*numClusters + clusterId] = devicenewClusters[coordId*numClusters + clusterId] / devicenewClusterSize[clusterId];
+        devicenewClusters[coordId*numClusters + clusterId] = 0;
     }
+    __syncthreads();
+    if (tid < numClusters) devicenewClusterSize[tid] = 0;
 }
+    
 
 
 //
-//  ----------------------------------------
+//  --------------------------------------
 //  DATA LAYOUT
 //
 //  objects         [numObjs][numCoords]
@@ -189,11 +191,11 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
     printf("\n|-----------Full-offload GPU Kmeans------------|\n\n");
     
     /* TODO: Copy me from transpose version*/
-  for (j = 0; j < numObjs; j++) {
-        for (i = 0; i < numCoords; i++) {
-        dimObjects[i][j] = objects[j * numCoords + i];
+   for (i = 0; i < numCoords; i++) {
+        for (j = 0; j < numObjs; j++) {
+            dimObjects[i][j] = objects[j*numCoords + i];
+        }
     }
-}
 	
     double *deviceObjects;
     double *deviceClusters, *devicenewClusters;
@@ -204,6 +206,7 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
     for (i = 0; i < numCoords; i++) {
         for (j = 0; j < numClusters; j++) {
             dimClusters[i][j] = dimObjects[i][j];
+           
         }
     }
 	
@@ -263,7 +266,7 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
         find_nearest_cluster
               <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
             (numCoords, numObjs, numClusters,
-             deviceObjects, devicenewClusterSize,deviceClusters, deviceMembership, dev_delta_ptr);
+             deviceObjects,devicenewClusters, devicenewClusterSize,deviceClusters, deviceMembership, dev_delta_ptr);
                //     <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
         //     (numCoords, numObjs, numClusters,
         //      deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
@@ -271,7 +274,7 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
         
         cudaDeviceSynchronize(); checkLastCudaError();
 		//printf("Kernels complete for itter %d, updating data in CPU\n", loop);
-    
+        
     	/* TODO: Copy dev_delta_ptr to &delta */
         checkCuda(cudaMemcpy(&delta,dev_delta_ptr, sizeof(double),cudaMemcpyDeviceToHost));
 
@@ -280,7 +283,15 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
      	const unsigned int update_centroids_dim_sz =  (numCoords*numClusters + update_centroids_block_sz - 1) / update_centroids_block_sz; /* TODO: calculate dim for "update_centroids" and fire it */
         update_centroids<<< update_centroids_dim_sz, update_centroids_block_sz, 0 >>>
             (numCoords, numClusters, devicenewClusterSize, devicenewClusters, deviceClusters);
-        cudaDeviceSynchronize(); checkLastCudaError();   
+        // Ensure the kernel has finished executing before accessing the data
+        cudaError_t err = cudaDeviceSynchronize();
+        if (err != cudaSuccess) {
+            printf("CUDA error: %s\n", cudaGetErrorString(err));
+            return;
+        }
+        checkLastCudaError();
+
+        // cudaDeviceSynchronize(); checkLastCudaError();   
                        
         delta /= numObjs;
        	//printf("delta is %f - ", delta);
@@ -295,13 +306,14 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
                  numObjs*sizeof(int), cudaMemcpyDeviceToHost));     
     checkCuda(cudaMemcpy(dimClusters[0], deviceClusters,
                  numClusters*numCoords*sizeof(double), cudaMemcpyDeviceToHost));  
+    
                                    
 	for (i=0; i<numClusters; i++) {
 		for (j=0; j<numCoords; j++) {
 		    clusters[i*numCoords + j] = dimClusters[j][i];
+          
 		}
 	}
-	
 	
     timing = wtime() - timing;
     printf("nloops = %d  : total = %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n|-------------------------------------------|\n", 

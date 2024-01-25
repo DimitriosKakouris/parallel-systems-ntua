@@ -138,11 +138,16 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
     //  TODO: Copy objects given in [numObjs][numCoords] layout to new
    
 	
-    for (j = 0; j < numObjs; j++) {
-        for (i = 0; i < numCoords; i++) {
-        dimObjects[i][j] = objects[j * numCoords + i];
+//     for (j = 0; j < numObjs; j++) {
+//         for (i = 0; i < numCoords; i++) {
+//         dimObjects[i][j] = objects[j * numCoords + i];
+//     }
+// }
+  for (i = 0; i < numCoords; i++) {
+        for (j = 0; j < numObjs; j++) {
+            dimObjects[i][j] = objects[j*numCoords + i];
+        }
     }
-}
 	
     /* pick first numClusters elements of objects[] as initial cluster centers*/
     for (i = 0; i < numCoords; i++) {
@@ -308,11 +313,16 @@ void kmeans_gpu(double *objects,      /* in: [numObjs][numCoords] */
 	} while (delta > threshold && loop < loop_threshold);
     
     /*TODO: Update clusters using dimClusters. Be carefull of layout!!! clusters[numClusters][numCoords] vs dimClusters[numCoords][numClusters] */ 
-	for (int i = 0; i < numClusters; i++) {
-    for (int j = 0; j < numCoords; j++) {
-        clusters[i*numCoords + j] = dimClusters[j][i];
+// 	for (int i = 0; i < numClusters; i++) {
+//     for (int j = 0; j < numCoords; j++) {
+//         clusters[i*numCoords + j] = dimClusters[j][i];
+//     }
+// }
+ for (i = 0; i < numCoords; i++) {
+        for (j = 0; j < numClusters; j++) {
+            clusters[j*numCoords + i] = dimClusters[i][j];
+        }
     }
-}
 	
     timing = wtime() - timing;
     printf("nloops = %d  : total = %lf ms\n\t-> t_loop_avg = %lf ms\n\t-> t_loop_min = %lf ms\n\t-> t_loop_max = %lf ms\n\n|-------------------------------------------|\n", 

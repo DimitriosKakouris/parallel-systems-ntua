@@ -1,77 +1,91 @@
+import re
+import csv
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
-import os
-import sys
 
-def extract_times(filename):
-    with open(filename, 'r') as file:
-        lines = file.readlines()
+# Function to parse the data and write to CSV
+def parse_data_to_csv(file_name,csv_file_name):
+    with open(file_name, 'r') as file:
+        data = file.read()
+    pattern = r'(\w+) X (\d+) Y (\d+) Px (\d+) Py (\d+) Iter (\d+) ComputationTime ([\d.]+) TotalTime ([\d.]+)'
+    matches = re.finditer(pattern, data)
 
-    times = {}
+    with open(csv_file_name, 'w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow(['Method', 'GridSizeX', 'GridSizeY', 'Px', 'Py', 'Iterations', 'ComputationTime', 'TotalTime'])
 
-    for line in lines:
-        words = line.split()
-        method = words[0]
-        grid_size = int(words[2])  
-        computation_time = float(words[words.index('ComputationTime') + 1])
-        total_time = float(words[words.index('TotalTime') + 1])
-        mpi_process = str(int(words[words.index('Px') + 1])*int(words[words.index('Py') + 1]))  # Convert mpi_process to string
+        for match in matches:
+            writer.writerow([
+                match.group(1),
+                int(match.group(2)),
+                int(match.group(3)),
+                int(match.group(4)),
+                int(match.group(5)),
+                int(match.group(6)),
+                float(match.group(7)),
+                float(match.group(8))
+            ])
 
-        if grid_size not in times:
-            times[grid_size] = {}
-        if mpi_process not in times[grid_size]:
-            times[grid_size][mpi_process] = {}
-        if method not in times[grid_size][mpi_process]:
-            times[grid_size][mpi_process][method] = []
+# Function to read the CSV file and return data organized by MPI process configuration
+def read_csv_data(csv_file_name):
+    data = {}
+    with open(csv_file_name, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            mpi_processes = int(row['Px']) * int(row['Py'])
+            key = (mpi_processes, row['Method'])
+            if key not in data:
+                data[key] = []
+            data[key].append(float(row['TotalTime']))
+    return data
 
-        times[grid_size][mpi_process][method].append((computation_time, total_time))
+# Function to plot the grouped bar plot
+def plot_speedup_graph(data):
+    # Unique sorted list of MPI process counts
+    mpi_processes = sorted(list(set(key[0] for key in data.keys())))
 
-    return times
+    grid_sizes = [2048,4096,6144]  
+    print(grid_sizes)
+    # Methods in the order they should be displayed
+    methods = ['Jacobi', 'GaussSeidelSOR', 'RedBlackSOR']
 
-def calculate_speedup(times):
-    speedup = {}
-
-    for grid_size, mpi_processes in times.items():
-        speedup[grid_size] = {}
-        for mpi_process, methods in mpi_processes.items():
-            speedup[grid_size][mpi_process] = {}
-            for method, exec_times in methods.items():
-                base_time = times[grid_size]["1"][method][0][0]  # Assuming computation time is the first element in the tuple
-                current_time = exec_times[0][0]  # Assuming computation time is the first element in the tuple
-                speedup[grid_size][mpi_process][method] = base_time / current_time
-
-    return speedup
-
-
-def plot_speedup(speedup):
     bar_width = 0.2
-    # Get the list of methods
-    methods = list(next(iter(next(iter(speedup.values())).values())).keys())
-    # Get the list of mpi_processes
-    mpi_processes = list(map(int, next(iter(speedup.values())).keys()))
-    mpi_processes.sort()
+    opacity = 0.8
 
-    n_methods = len(methods)
-    n_processes = len(mpi_processes)
+    
 
-    for grid_size in speedup.keys():
-        plt.figure(figsize=(10, 6))
+    for k,grid_size in enumerate(grid_sizes):
+        fig,ax = plt.subplots()
+        times=[]
+        baseline_time = None
+        for j in mpi_processes:
+          
+            method_times = [data[(j, method)][k] for method in methods]
+            if j == 1:
+                baseline_time = method_times
+            times.append([baseline_time[i] / time if time != 0 else 0 for i, time in enumerate(method_times)])
+           
+           
 
-        for i, method in enumerate(methods):
-            speedup_values = [speedup[grid_size][str(mpi_process)][method] for mpi_process in mpi_processes]
-            bar_positions = np.arange(n_processes) + i * bar_width
-            plt.bar(bar_positions, speedup_values, bar_width, label=method)
+        # Create the bar plot
+        for i in range(len(methods)):
+            ax.bar(np.arange(len(mpi_processes)) + i*bar_width, [time[i] for time in times], bar_width, alpha=opacity, label=methods[i])
 
-        plt.title(f"Speedup_plot_{grid_size}")
-        plt.xlabel("Number of Processes")
-        plt.ylabel("Speedup")
-        plt.xticks(np.arange(n_processes) + bar_width * (n_methods - 1) / 2, mpi_processes)  # Set x-axis ticks labels to mpi_processes
-        plt.legend()  # Show legend for the two bars
-        plt.grid(True, which='both', axis='both', linestyle='--', linewidth=0.5)
+        ax.set_xlabel('MPI Processes')
+        ax.set_ylabel('Seq/time (seconds)')
+        ax.set_title(f'Speedup for Grid Size {grid_size}x{grid_size}')
+        ax.set_xticks(np.arange(len(mpi_processes)) + bar_width, mpi_processes)
+        ax.legend()
+        plt.savefig(f'Speedup for Grid Size {grid_size}x{grid_size}', dpi=300)
 
-        plt.savefig(f"Speedup_plot_{grid_size}", dpi=300)
-        plt.close()
-filename = sys.argv[1]
-times = extract_times(filename)
-speedup = calculate_speedup(times)
-plot_speedup(speedup)
+      
+   
+    
+# Usage
+file_name = sys.argv[1]  # Use your file name
+parse_data_to_csv(file_name, 'all_noconv.csv')
+csv_file_name = 'all_noconv.csv'
+data = read_csv_data(csv_file_name)
+
+plot_speedup_graph(data)

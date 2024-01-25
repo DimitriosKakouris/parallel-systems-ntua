@@ -7,10 +7,11 @@ CPP          = g++
 NVCC        = /usr/local/cuda-12.1/bin/nvcc
 
 # TODO: Enable VALIDATE when implementing new versions to check results in respect to serial execution.  
-# VALIDATE_FLAG=-DVALIDATE
+#VALIDATE_FLAG=-DVALIDATE
 #VALIDATE_FLAG=#IMPORTANT: Disable in long benchmarks if correctness is established.
 
-CFLAGS  = -O3 -I$(HELPER_DIR) $(VALIDATE_FLAG) -D TIMING_ANALYSIS
+CFLAGS  = -O3 -I$(HELPER_DIR) $(VALIDATE_FLAG) 
+#-D TIMING_ANALYSIS
 NVCCFLAGS   =$(CFLAGS) --ptxas-options=-v -arch=sm_60\
 #-gencode=arch=compute_35,code=sm_35\
 #-gencode=arch=compute_52,code=sm_52\
