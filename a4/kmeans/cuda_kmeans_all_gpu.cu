@@ -267,6 +267,9 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
               <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
             (numCoords, numObjs, numClusters,
              deviceObjects,devicenewClusters, devicenewClusterSize,deviceClusters, deviceMembership, dev_delta_ptr);
+
+
+
                //     <<< numClusterBlocks, numThreadsPerClusterBlock, clusterBlockSharedDataSize >>>
         //     (numCoords, numObjs, numClusters,
         //      deviceObjects, devicenewClusterSize, devicenewClusters, deviceClusters, deviceMembership, dev_delta_ptr);
@@ -283,6 +286,9 @@ void kmeans_gpu(	double *objects,      /* in: [numObjs][numCoords] */
      	const unsigned int update_centroids_dim_sz =  (numCoords*numClusters + update_centroids_block_sz - 1) / update_centroids_block_sz; /* TODO: calculate dim for "update_centroids" and fire it */
         update_centroids<<< update_centroids_dim_sz, update_centroids_block_sz, 0 >>>
             (numCoords, numClusters, devicenewClusterSize, devicenewClusters, deviceClusters);
+        
+        
+        
         // Ensure the kernel has finished executing before accessing the data
         cudaError_t err = cudaDeviceSynchronize();
         if (err != cudaSuccess) {
