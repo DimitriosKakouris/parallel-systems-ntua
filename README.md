@@ -33,8 +33,7 @@ Conducted an empirical study of locking mechanisms:
 - Custom solutions: test-and-set (```tas_lock```), test-and-test-and-set (```ttas_lock```), array-based locks (```array_lock```), CLH queue locks (```clh_lock```)
 - Comparative analysis with OpenMP's directives ```#pragma omp critical``` and ```#pragma omp atomic```
 
-### **Implementation C: Graph Algorithm Parallelization**
-Transformed the Floyd-Warshall shortest path algorithm using task-based parallelism:
+### **Implementation C: Floyd-Warshall Algorithm task-parallelization**
 - OpenMP task decomposition of the recursive formulation
 - Performance profiling across various graph dimensions
 - Extended analysis comparing tiled and recursive approaches (additional work)
