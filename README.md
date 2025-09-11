@@ -34,17 +34,17 @@ Conducted an empirical study of locking mechanisms:
 - Comparative analysis with OpenMP's directives ```#pragma omp critical``` and ```#pragma omp atomic```
 
 ### **Implementation C: Floyd-Warshall Algorithm task-parallelization**
-- OpenMP task decomposition of the recursive formulation
-- Performance profiling across various graph dimensions
-- Extended analysis comparing tiled and recursive approaches (additional work)
+- Recursive Implementation Parallelization with OpenMP tasks.
+- Performance profiling across various matrixdimensions
+- Comparison of tiled and recursive approaches (additional work)
 
 ### **Implementation D: Thread-Safe Data Structure Design**
 Investigated concurrent linked list implementations through multiple synchronization paradigms:
-- Global locking approach
-- Per-node locking strategy
-- Optimistic concurrency control
-- Deferred synchronization techniques
-- Lock-free implementation
+- Coarse-grain locking
+- Fine-grain locking
+- Optimistic synchronization
+- Lazy synchronization
+- Non-blocking synchronization
 
 ---
 
@@ -65,7 +65,7 @@ Progressively refined GPU implementations demonstrating optimization techniques:
 
 ### **Distributed K-means Implementation**
 Developed a message-passing variant using MPI infrastructure:
-- Inter-process communication design for cluster updates
+- Distributed nodes implementation
 - Scalability comparison with shared-memory OpenMP implementation
 
 ### **Parallel PDE Solver: Heat Equation**
